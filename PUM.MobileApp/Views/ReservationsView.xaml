@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="PUM.MobileApp.Views.ReservationsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PUM.MobileApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <!--<StackPanel Background="LightGreen">
+            <CalendarView CalendarItemBackground="LightGreen" OutOfScopeBackground="GreenYellow" Background="LightGreen" Margin="10 10 10 0" Width="410"/>
+            <Button Margin="10 10 10 10" Content="RESERVE" FontSize="30" HorizontalAlignment="Center"></Button>
+        </StackPanel>-->
+        <TextBlock Margin="10 10 10 10" FontSize="20" Text="{Binding HeaderText}" FontFamily="Comic Sans MS"></TextBlock>
+
+    </Grid>
+</Page>
