@@ -6,36 +6,36 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" SizeChanged="Page_SizeChanged">
     <Grid>
-            <StackPanel Orientation="Vertical"
+        <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                <TextBox Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <TextBox x:Name="LoginTextBox" Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      Header="Login:"
                      FontSize="20"
                      Margin="20, 0">
-                    <TextBox.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" FontSize="30" FontWeight="Bold"/>
-                        </DataTemplate>
-                    </TextBox.HeaderTemplate>
-                </TextBox>
-                <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="30" FontWeight="Bold"/>
+                    </DataTemplate>
+                </TextBox.HeaderTemplate>
+            </TextBox>
+            <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          Header="Password:" 
                          FontSize="20"
                          Margin="20, 20">
-                    <PasswordBox.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" 
+                <PasswordBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" 
                                    FontSize="30"
                                    FontWeight="Bold"/>
-                        </DataTemplate>
-                    </PasswordBox.HeaderTemplate>
-                </PasswordBox>
-                <Button HorizontalAlignment="Center"
+                    </DataTemplate>
+                </PasswordBox.HeaderTemplate>
+            </PasswordBox>
+            <Button x:Name="LoginButton"
                     Width="400" Margin="20, 0"
-                    FontSize="30" Content="LOGIN" 
+                    Content="LOGIN" 
                     Command="{x:Bind ViewModel.LoginCommand}"
                     FontWeight="Bold"/>
             <ProgressRing Height="50" 
@@ -44,6 +44,27 @@
                               IsActive="{x:Bind ViewModel.IsWorking}"
                               Foreground="Black"/>
         </StackPanel>
-           
-        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Portrait">
+                    <VisualState.Setters>
+                        <Setter Target="LoginTextBox.FontSize" Value="50"/>
+                        <Setter Target="LoginButton.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="LoginButton.FontSize" Value="50"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Landscape">
+                    <VisualState.Setters>
+                        <Setter Target="LoginTextBox.FontSize" Value="5"/>
+                        <Setter Target="LoginButton.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="LoginButton.FontSize" Value="5"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
 </Page>

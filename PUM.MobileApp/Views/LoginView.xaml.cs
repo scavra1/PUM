@@ -1,18 +1,6 @@
 ﻿using PUM.MobileApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,13 +11,42 @@ namespace PUM.MobileApp.Views
     /// </summary>
     public sealed partial class LoginView : Page
     {
+        private enum Orientation
+        {
+            Landscape,
+            Portrait
+        };
+
+        private Orientation orientation;
+
         public LoginView()
         {
             this.InitializeComponent();
 
             ViewModel = new LoginViewModel();
+            orientation = Height > Width ? Orientation.Portrait : Orientation.Landscape;
+
+            VisualStateManager.GoToState(this, orientation.ToString(), true);
         }
 
         public LoginViewModel ViewModel { get; private set; }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var prev = orientation;
+            orientation = e.NewSize.Height > e.NewSize.Width ? Orientation.Portrait : Orientation.Landscape;
+
+            if (prev != orientation)
+            {
+                string s = orientation.ToString();
+                string state = orientation == Orientation.Landscape ? "Landscape" : "Portrait";
+                bool bTrans = VisualStateManager.GoToState(this, state, false);
+                double size = LoginButton.FontSize;
+            }
+
+
+
+
+        }
     }
 }

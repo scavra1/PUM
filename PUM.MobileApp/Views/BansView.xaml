@@ -6,10 +6,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="593" Width="586">
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact" FocusVisualPrimaryBrush="#FF8B6969">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Name="home" Icon="Home" Label="Home"/>
+                <AppBarButton Name="admin" Icon="Admin" Label="Admin"/>
+                <AppBarButton Name="contact" Icon="Contact" Label="Contact"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Name="setting" Icon="Setting" Label="Setting"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
     <Grid>
         <StackPanel>
-            <ListView Header="Active Bans:" ItemsSource="{x:Bind ViewModel.BansCollection}">
+            <ListView x:Name="ListView1" Header="Active Bans:" ItemsSource="{x:Bind Path=ViewModel.BansCollection}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="0 0 0 2" BorderBrush="DimGray" Margin="0 10 0 0">
@@ -18,10 +30,10 @@
                                     <ColumnDefinition MinWidth="340"/>
                                     <ColumnDefinition Width="70"/>
                                 </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="{Binding BannedUsername}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
-                                <TextBlock Text="{Binding Reason}" Margin="5 0 0 5" FontSize="15" Foreground="Gray"/>
-                            </StackPanel>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding BannedUsername}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Reason}" Margin="5 0 0 5" FontSize="15" Foreground="Gray"/>
+                                </StackPanel>
                                 <Button Grid.Column="1" Content="Erase" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
                             <!--<StackPanel Orientation="Vertical">
@@ -39,4 +51,17 @@
             </ListView>
         </StackPanel>
     </Grid>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState x:Name="NarrowState">
+                <VisualState.StateTriggers>
+                    <!-- VisualState to be triggered when window width is >=720 effective pixels -->
+                    <AdaptiveTrigger MinWindowWidth="720"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="ListView1.Header" Value="lol" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 </Page>
