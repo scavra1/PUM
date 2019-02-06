@@ -1,5 +1,6 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
+    using GalaSoft.MvvmLight;
     using Newtonsoft.Json;
     using PUM.MobileApp.Models;
     using System;
@@ -8,7 +9,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public class BansViewModel
+    public class BansViewModel : ViewModelBase
     {
         public BansViewModel()
         {

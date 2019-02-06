@@ -27,7 +27,7 @@ namespace PUM.MobileApp.Views
         {
             this.InitializeComponent();
 
-            ViewModel = new LoginViewModel();
+            
         }
 
         public LoginViewModel ViewModel { get; private set; }

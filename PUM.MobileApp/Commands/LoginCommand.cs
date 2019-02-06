@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
-using PUM.MobileApp.ViewModels;
-using PUM.SharedModels;
-using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace PUM.MobileApp.Commands
+﻿namespace PUM.MobileApp.Commands
 {
+    using Newtonsoft.Json;
+    using PUM.MobileApp.ViewModels;
+    using PUM.SharedModels;
+    using System;
+    using System.Diagnostics;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+
     public class LoginCommand : ICommand
     {
 
@@ -35,7 +35,6 @@ namespace PUM.MobileApp.Commands
 
         public async void Execute(object parameter)
         {
-            //var uri = new Uri("");
             var client = new HttpClient();
 
             viewModel.IsWorking = true;
@@ -60,6 +59,8 @@ namespace PUM.MobileApp.Commands
             await Task.Delay(5000);
 
             viewModel.IsWorking = false;
+
+            viewModel.NavigationService.NavigateTo("MainMenu");
         }
 
         private LoginViewModel viewModel;

@@ -119,11 +119,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\GetBansCommand.cs" />
+    <Compile Include="Commands\GetFeesCommand.cs" />
+    <Compile Include="Commands\GetReservationsCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\LogoutCommand.cs" />
+    <Compile Include="Commands\NavigateBansCommand.cs" />
+    <Compile Include="Commands\NavigateFeesCommand.cs" />
     <Compile Include="Models\Ban.cs" />
     <Compile Include="Models\Fee.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
+    <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="Commands\NavigateReservationsCommand.cs" />
+    <Compile Include="ViewModels\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\FeesView.xaml.cs">
       <DependentUpon>FeesView.xaml</DependentUpon>
