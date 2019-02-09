@@ -2,7 +2,6 @@
 {
     using GalaSoft.MvvmLight;
     using PUM.MobileApp.Commands;
-    using PUM.MobileApp.Models;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
 
@@ -10,7 +9,7 @@
     {
         public FeesViewModel()
         {
-            FeesCollection = new ObservableCollection<Fee>();
+           
         }
 
         public ICommand GetFeesCommand
@@ -23,8 +22,6 @@
                 return GetFeesCommand;
             }
         }
-
-        public ObservableCollection<Fee> FeesCollection { get; }
 
         private ICommand getFeesCommand;
     }

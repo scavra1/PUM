@@ -9,6 +9,11 @@
 
         private ReservationsDatabaseContext reservationsContext;
 
+        public ReservationsController()
+        {
+            reservationsContext = new ReservationsDatabaseContext();
+        }
+
         [HttpPost]
         public IHttpActionResult Reserve([FromBody] long userId, [FromBody] DateTime dateTime)
         {
@@ -21,6 +26,21 @@
             else
             {
                 return BadRequest("Invalid request model");
+            }
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetReservations(int dateKey)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservations = reservationsContext.GetReservations(dateKey);
+
+                return Ok(reservations);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
     }

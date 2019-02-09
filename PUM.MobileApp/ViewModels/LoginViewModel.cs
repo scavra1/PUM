@@ -11,6 +11,8 @@
         public LoginViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
+            this.Login = "scavra";
+            this.Password = "password";
         }
 
         public string Login

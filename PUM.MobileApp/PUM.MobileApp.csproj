@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\DeleteReservationCommand.cs" />
     <Compile Include="Commands\GetBansCommand.cs" />
     <Compile Include="Commands\GetFeesCommand.cs" />
     <Compile Include="Commands\GetReservationsCommand.cs" />
@@ -126,8 +127,11 @@
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigateBansCommand.cs" />
     <Compile Include="Commands\NavigateFeesCommand.cs" />
-    <Compile Include="Models\Ban.cs" />
-    <Compile Include="Models\Fee.cs" />
+    <Compile Include="Commands\ReserveCommand.cs" />
+    <Compile Include="CustomControls\ReservationControl.xaml.cs">
+      <DependentUpon>ReservationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
@@ -173,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomControls\ReservationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FeesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

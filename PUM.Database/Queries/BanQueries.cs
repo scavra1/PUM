@@ -9,10 +9,11 @@ namespace PUM.Database.Queries
     public class BanQueries
     {
         public const string GetBansQuery = @"
-SELECT CONCAT(U.FirstName, ' ', U.LastName) AS BannedUsername,
+SELECT CONCAT(U.FirstName, ' ', U.LastName) AS BannedUsername
+    , B.BanID
     , B.Reason
     , B.Expire AS ExpirationDate
 FROM dbo.Bans B
-INNER JOIN dbo.Users ON B.UserID = U.UserID";
+INNER JOIN dbo.Users U ON B.UserID = U.UserID";
     }
 }

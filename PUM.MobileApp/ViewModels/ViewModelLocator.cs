@@ -1,9 +1,9 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
     using CommonServiceLocator;
-    using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Ioc;
     using GalaSoft.MvvmLight.Views;
+    using PUM.MobileApp.Services;
     using PUM.MobileApp.Views;
 
     public class ViewModelLocator
@@ -26,6 +26,7 @@
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReservationsViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
+            SimpleIoc.Default.Register<UserService>();
         }
 
         public BansViewModel BansViewModel

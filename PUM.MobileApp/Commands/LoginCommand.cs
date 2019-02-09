@@ -56,8 +56,6 @@
                 Debug.Print("DUPAAAA");
             }
 
-            await Task.Delay(5000);
-
             viewModel.IsWorking = false;
 
             viewModel.NavigationService.NavigateTo("MainMenu");

@@ -13,8 +13,8 @@
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Button HorizontalAlignment="Stretch" Content="Reservations" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
-            <Button HorizontalAlignment="Stretch" Content="Active Bans" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="Reservations" Command="{Binding NavigateReservationsCommand}" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="Active Bans" Command="{Binding NavigateBansCommand}" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
             <Button HorizontalAlignment="Stretch" Content="Fees" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
             <Button HorizontalAlignment="Stretch" Content="Exit" FontSize="35" FontWeight="Bold" Margin="0 20 0 20"/>
         </StackPanel>
