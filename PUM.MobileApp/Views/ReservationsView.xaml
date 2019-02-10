@@ -17,7 +17,7 @@
                 <Border BorderBrush="Blue" Padding="0 0 0 5" BorderThickness="0 0 0 3">
                     <TextBlock Text="Reservations" FontWeight="Bold" FontSize="20"/>
                 </Border>
-                <DatePicker HorizontalAlignment="Center" DateChanged="DatePicker_DateChanged"  Date="{Binding SelectedDate}" Margin="0,30,0,0" VerticalAlignment="Stretch"/>
+                <DatePicker HorizontalAlignment="Center" DateChanged="DatePicker_DateChanged"  Date="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,30,0,0" VerticalAlignment="Stretch"/>
 
 
                 <Grid Margin="0 15">
@@ -49,7 +49,7 @@
                     </StackPanel>
 
                     <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[0].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[0].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[0]}"/>
@@ -58,7 +58,7 @@
                             </Button.ContextFlyout>
                         </Button>
 
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[1].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[1].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[1]}"/>
@@ -74,7 +74,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[3].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[3].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[3]}"/>
@@ -82,7 +82,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[4].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[4].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[4]}"/>
@@ -90,7 +90,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[5].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[5].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[5]}"/>
@@ -98,7 +98,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[6].Person}" Height="30" Width="275" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[6].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[6]}"/>
@@ -106,7 +106,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[7].Person}" Height="30" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[7].Person}" Height="30" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[7]}"/>
@@ -114,7 +114,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[8].Person}" Height="30" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[8].Person}" Height="30" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[8]}"/>
@@ -122,7 +122,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[9].Person}" Height="30" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[9].Person}" Height="30" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[9]}"/>
@@ -130,7 +130,7 @@
                                 </MenuFlyout>
                             </Button.ContextFlyout>
                         </Button>
-                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[10].Person}" Height="30" Margin="0 10" FontSize="20">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[10].Person}" Height="30" Margin="0 10" FontSize="15">
                             <Button.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[10]}"/>

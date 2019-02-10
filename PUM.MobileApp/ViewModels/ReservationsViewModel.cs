@@ -1,8 +1,10 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
+    using CommonServiceLocator;
     using GalaSoft.MvvmLight;
     using Newtonsoft.Json;
     using PUM.MobileApp.Commands;
+    using PUM.MobileApp.Services;
     using PUM.SharedModels;
     using System;
     using System.Collections.Generic;
@@ -14,9 +16,10 @@
 
     public class ReservationsViewModel : ViewModelBase
     {
-        public ReservationsViewModel()
+        public ReservationsViewModel(IUserService userService)
         {
             SelectedDate = DateTime.Now;
+            UserService = userService;
             DownloadReservations();
         }
 
@@ -43,7 +46,7 @@
             get
             {
                 if (reserveCommand == null)
-                    reserveCommand = new ReserveCommand(this);
+                    reserveCommand = new ReserveCommand(this, UserService);
 
                 return reserveCommand;
             }
@@ -55,7 +58,7 @@
             get
             {
                 if (deleteReservationCommand == null)
-                    deleteReservationCommand = new DeleteReservationCommand(this);
+                    deleteReservationCommand = new DeleteReservationCommand(this, UserService);
 
                 return deleteReservationCommand;
             }
@@ -91,6 +94,8 @@
                 RaisePropertyChanged("Reservations");
             }
         }
+
+        public IUserService UserService { get; private set; }
 
         public async Task DownloadReservations()
         {

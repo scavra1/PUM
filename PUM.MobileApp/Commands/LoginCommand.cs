@@ -1,6 +1,7 @@
 ﻿namespace PUM.MobileApp.Commands
 {
     using Newtonsoft.Json;
+    using PUM.MobileApp.Services;
     using PUM.MobileApp.ViewModels;
     using PUM.SharedModels;
     using System;
@@ -49,16 +50,16 @@
 
             if (user != null)
             {
-                Debug.Print("User downloaded:" + user.FirstName + " " + user.LastName);
+                viewModel.UserService.CurrentUser = user;
+                viewModel.NavigationService.NavigateTo("MainMenu");
             }
             else
             {
-                Debug.Print("DUPAAAA");
             }
 
             viewModel.IsWorking = false;
 
-            viewModel.NavigationService.NavigateTo("MainMenu");
+
         }
 
         private LoginViewModel viewModel;

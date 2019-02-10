@@ -1,16 +1,20 @@
 ﻿namespace PUM.MobileApp.Commands
 {
+    using PUM.MobileApp.Services;
     using PUM.MobileApp.ViewModels;
     using PUM.SharedModels;
     using System;
     using System.Diagnostics;
+    using System.Net.Http;
     using System.Windows.Input;
+    using Windows.UI.Popups;
 
     public class DeleteReservationCommand : ICommand
     {
-        public DeleteReservationCommand(ReservationsViewModel viewModel)
+        public DeleteReservationCommand(ReservationsViewModel viewModel, IUserService userService)
         {
             this.viewModel = viewModel;
+            this.userService = userService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -25,16 +29,30 @@
             }
             else
             {
-                return reservation.UserID.HasValue;
+                return reservation.UserID.HasValue && reservation.UserID.Value == userService.CurrentUser.UserID;
             }
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            Debug.WriteLine("gfidojbiobdjo");
-            //throw new NotImplementedException();
+            var reservation = (Reservation)parameter;
+
+            if (reservation != null)
+            {
+                var client = new HttpClient();
+                var requestUri = $@"http://localhost/api/reservations/deletereservation?reservationid={reservation.ReservationID.Value}";
+
+                var response = await client.DeleteAsync(requestUri);
+
+                var dialog = new MessageDialog("Rezerwacja została usunięta.");
+
+                var command = await dialog.ShowAsync();
+
+                viewModel.DownloadReservations();
+            }
         }
 
         private ReservationsViewModel viewModel;
+        private IUserService userService;
     }
 }

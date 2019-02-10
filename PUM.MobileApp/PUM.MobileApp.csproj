@@ -120,9 +120,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\DeleteReservationCommand.cs" />
-    <Compile Include="Commands\GetBansCommand.cs" />
-    <Compile Include="Commands\GetFeesCommand.cs" />
-    <Compile Include="Commands\GetReservationsCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigateBansCommand.cs" />

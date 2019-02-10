@@ -30,7 +30,8 @@ namespace PUM.MobileApp.Views
 
         private async void DatePicker_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
-            await ((ReservationsViewModel)DataContext).DownloadReservations();
+            var viewModel = (ReservationsViewModel)DataContext;
+            await viewModel.DownloadReservations();
         }
     }
 }

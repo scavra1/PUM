@@ -1,8 +1,6 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
     using GalaSoft.MvvmLight;
-    using PUM.MobileApp.Commands;
-    using System.Collections.ObjectModel;
     using System.Windows.Input;
 
     public class FeesViewModel : ViewModelBase
@@ -16,10 +14,7 @@
         {
             get
             {
-                if (getFeesCommand == null)
-                    getFeesCommand = new GetFeesCommand(this);
-
-                return GetFeesCommand;
+                return getFeesCommand;
             }
         }
 

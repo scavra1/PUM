@@ -18,5 +18,46 @@
             parameters.Add("DateKey", dateKey);
             return Query<Reservation>(ReservationQueries.GetReservations, parameters);
         }
+
+        public bool CheckDailyReservationForUser(long userID, int dateKey)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("UserID", userID);
+            parameters.Add("DateKey", dateKey);
+
+            return ExecuteScalar<bool>(ReservationQueries.CheckUserDailyReservationsQuery, parameters);
+        }
+
+        public bool CheckWeeklyReservation(long? userID, int startDateKey, int endDateKey)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("UserID", userID);
+            parameters.Add("StartDateKey", startDateKey);
+            parameters.Add("EndDateKey", endDateKey);
+
+            return ExecuteScalar<bool>(ReservationQueries.CheckUserWeeklyReservationsQuery, parameters);
+        }
+
+        public void ReserveDateForUser(long userID, int reservationDateKey, int reservationHourKey)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("UserID", userID);
+            parameters.Add("DateKey", reservationDateKey);
+            parameters.Add("HourKey", reservationHourKey);
+
+            Execute(ReservationQueries.ReserveQuery, parameters);
+        }
+
+        public void DeleteReservation(long reservationID)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("ReservationID", reservationID);
+
+            Execute(ReservationQueries.DeleteReservation, parameters);
+        }
     }
 }

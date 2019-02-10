@@ -3,13 +3,15 @@
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Views;
     using PUM.MobileApp.Commands;
+    using PUM.MobileApp.Services;
     using System.ComponentModel;
     using System.Windows.Input;
 
     public class LoginViewModel : ViewModelBase
     {
-        public LoginViewModel(INavigationService navigationService)
+        public LoginViewModel(INavigationService navigationService, IUserService userService)
         {
+            this.UserService = userService;
             this.NavigationService = navigationService;
             this.Login = "scavra";
             this.Password = "password";
@@ -55,6 +57,8 @@
                 return loginCommand;
             }
         }
+
+        public IUserService UserService { get; private set; }
 
         private string password;
 

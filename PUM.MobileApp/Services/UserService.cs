@@ -6,7 +6,7 @@
         User CurrentUser { get; set; }
     }
 
-    class UserService : IUserService
+    public class UserService : IUserService
     {
         public User CurrentUser { get; set; }
     }

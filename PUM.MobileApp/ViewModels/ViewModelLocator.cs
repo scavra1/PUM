@@ -20,13 +20,14 @@
             nav.Configure("MainMenu", typeof(MainMenuView));
             nav.Configure("Reservations", typeof(ReservationsView));
 
+            SimpleIoc.Default.Register<IUserService, UserService>();
             SimpleIoc.Default.Register<INavigationService>(() => nav);
+
             SimpleIoc.Default.Register<BansViewModel>();
             SimpleIoc.Default.Register<FeesViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReservationsViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
-            SimpleIoc.Default.Register<UserService>();
         }
 
         public BansViewModel BansViewModel
