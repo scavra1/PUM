@@ -17,7 +17,18 @@
             DownloadBans();
         }
 
-        public ObservableCollection<Ban> BansCollection { get;  set; }
+        public ObservableCollection<Ban> BansCollection
+        {
+            get
+            {
+                return bansCollection;
+            }
+            set
+            {
+                bansCollection = value;
+                RaisePropertyChanged("BansCollection");
+            }
+        }
 
 
         private bool isWorking;
@@ -52,5 +63,7 @@
 
             IsWorking = false;
         }
+
+        private ObservableCollection<Ban> bansCollection;
     }
 }

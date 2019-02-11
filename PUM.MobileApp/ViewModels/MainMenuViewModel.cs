@@ -27,7 +27,7 @@
             get
             {
                 if (navigateBansCommand == null)
-                    navigateBansCommand = new NavigateBansCommand(this);
+                    navigateBansCommand = new NavigationCommand("Bans");
 
                 return navigateBansCommand;
             }
@@ -38,7 +38,7 @@
             get
             {
                 if (navigateFeesCommand == null)
-                    navigateFeesCommand = new NavigateFeesCommand(this);
+                    navigateFeesCommand = new NavigationCommand("Fees");
 
                 return navigateFeesCommand;
             }
@@ -49,14 +49,42 @@
             get
             {
                 if (navigateReservationsCommand == null)
-                    navigateReservationsCommand = new NavigateReservationsCommand(this);
+                    navigateReservationsCommand = new NavigationCommand("Reservations");
 
                 return navigateReservationsCommand;
             }
         }
 
+        public ICommand NavigateUserReservationsCommand
+        {
+            get
+            {
+                if (navigateUserReservationsCommand == null)
+                    navigateUserReservationsCommand = new NavigationCommand("UserReservations");
+
+                return navigateUserReservationsCommand;
+            }
+        }
+
+        public ICommand NavigateUserManagementCommand
+        {
+            get
+            {
+                if (navigateUserManagementCommand == null)
+                    navigateUserManagementCommand = new NavigationCommand("UserManagement");
+
+                return navigateUserManagementCommand;
+            }
+        }
+
+        private ICommand navigateUserManagementCommand;
+
+        private ICommand navigateUserReservationsCommand;
+
         private ICommand navigateBansCommand;
+
         private ICommand navigateFeesCommand;
+
         private ICommand navigateReservationsCommand;
 
         private ICommand logoutCommand;

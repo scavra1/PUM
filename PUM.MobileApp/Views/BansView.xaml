@@ -10,36 +10,34 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding BansViewModel, Source={StaticResource Locator}}">
     <Grid>
-        <StackPanel>
-            <ListView Header="Active Bans:" ItemsSource="{x:Bind ViewModel.BansCollection}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="sharedmodels:Ban">
-                        <Border BorderThickness="0 0 0 2" BorderBrush="DimGray" Margin="0 10 0 0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition MinWidth="340"/>
-                                    <ColumnDefinition Width="70"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{Binding BannedUsername}" FontSize="20" FontWeight="Bold" Foreground="Black"/>
-                                    <TextBlock Text="{Binding Reason}" Margin="5 0 0 5" FontSize="15" Foreground="Red"/>
-                                    <TextBlock Text="{Binding ExpirationDate}" Margin="5 0 0 5" FontSize="15" Foreground="Red"/>
-                                </StackPanel>
-                                <Button Grid.Column="1" Content="Unban" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                            </Grid>
-                            <!--<StackPanel Orientation="Vertical">
+        <ListView Header="Active Bans:" ItemsSource="{Binding BansCollection}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="sharedmodels:Ban">
+                    <Border BorderThickness="0 0 0 2" BorderBrush="DimGray" Margin="0 10 0 0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="340"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{Binding BannedUsername}" FontSize="20" FontWeight="Bold" Foreground="Black"/>
+                                <TextBlock Text="{Binding Reason}" Margin="5 0 0 5" FontSize="15" Foreground="Red"/>
+                                <TextBlock Text="{Binding ExpirationDate}" Margin="5 0 0 5" FontSize="15" Foreground="Red"/>
+                            </StackPanel>
+                            <Button Grid.Column="1" Content="Unban" />
+                        </Grid>
+                        <!--<StackPanel Orientation="Vertical">
                                 <TextBlock Text="{x:Bind Name}" FontSize="25" Foreground="Black"/>
                                 <TextBlock Text="{x:Bind Reason}" FontSize="15" Foreground="Gray"/>
                             </StackPanel>-->
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" FontSize="25" Margin="10 10 0 0" FontWeight="Bold"/>
-                    </DataTemplate>
-                </ListView.HeaderTemplate>
-            </ListView>
-        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="25" Margin="10 10 0 0" FontWeight="Bold"/>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+        </ListView>
     </Grid>
 </Page>

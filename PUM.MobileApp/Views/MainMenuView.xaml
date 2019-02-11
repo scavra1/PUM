@@ -13,10 +13,11 @@
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Button HorizontalAlignment="Stretch" Content="Reservations" Command="{Binding NavigateReservationsCommand}" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
-            <Button HorizontalAlignment="Stretch" Content="Active Bans" Command="{Binding NavigateBansCommand}" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
-            <Button HorizontalAlignment="Stretch" Content="Fees" FontSize="35" FontWeight="Bold" Margin="0 0 0 20"/>
-            <Button HorizontalAlignment="Stretch" Content="Exit" FontSize="35" FontWeight="Bold" Margin="0 20 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="My Reservations" Command="{Binding NavigateUserReservationsCommand}" FontSize="25" FontWeight="Bold" Margin="0 0 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="Reservations" Command="{Binding NavigateReservationsCommand}" FontSize="25" FontWeight="Bold" Margin="0 0 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="Active Bans" Command="{Binding NavigateBansCommand}" FontSize="25" FontWeight="Bold" Margin="0 0 0 20"/>
+            <Button HorizontalAlignment="Stretch" Content="Manage Users" Command="{Binding NavigateUserManagement}" FontSize="25" FontWeight="Bold"/>
+            <Button HorizontalAlignment="Stretch" Content="Exit" FontSize="25" FontWeight="Bold" Margin="0 20"/>
         </StackPanel>
     </Grid>
 </Page>
