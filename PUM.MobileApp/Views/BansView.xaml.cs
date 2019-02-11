@@ -19,8 +19,6 @@ namespace PUM.MobileApp.Views
         public BansView()
         {
             this.InitializeComponent();
-
-            ViewModel = new BansViewModel();
         }
 
         public BansViewModel ViewModel { get; set; }

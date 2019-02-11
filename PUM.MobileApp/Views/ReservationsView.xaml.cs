@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PUM.MobileApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace PUM.MobileApp.Views
         public ReservationsView()
         {
             this.InitializeComponent();
+        }
+
+        private async void DatePicker_DateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            var viewModel = (ReservationsViewModel)DataContext;
+            await viewModel.DownloadReservations();
         }
     }
 }

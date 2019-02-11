@@ -2,8 +2,11 @@
     x:Class="PUM.MobileApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:PUM.MobileApp">
+    xmlns:local="using:PUM.MobileApp"
+    xmlns:vm="using:PUM.MobileApp.ViewModels">
     <Application.Resources>
-        <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="Orange" />
+        <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="Gray" />
+        <SolidColorBrush x:Key="ApplicationLabelForegroundBrush" Color="White"/>
+        <vm:ViewModelLocator xmlns:vm="using:PUM.MobileApp.ViewModels" x:Key="Locator" />
     </Application.Resources>
 </Application>

@@ -1,13 +1,20 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
+    using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Views;
     using PUM.MobileApp.Commands;
+    using PUM.MobileApp.Services;
     using System.ComponentModel;
     using System.Windows.Input;
 
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : ViewModelBase
     {
-        public LoginViewModel()
+        public LoginViewModel(INavigationService navigationService, IUserService userService)
         {
+            this.UserService = userService;
+            this.NavigationService = navigationService;
+            this.Login = "scavra";
+            this.Password = "password";
         }
 
         public string Login
@@ -16,7 +23,7 @@
             set
             {
                 login = value;
-                OnPropertyChanged("Login");
+                RaisePropertyChanged("Login");
             }
         }
 
@@ -26,7 +33,7 @@
             set
             {
                 password = value;
-                OnPropertyChanged("Password");
+                RaisePropertyChanged("Password");
             }
         }
 
@@ -36,7 +43,7 @@
             set
             {
                 isWorking = value;
-                OnPropertyChanged("IsWorking");
+                RaisePropertyChanged("IsWorking");
             }
         }
 
@@ -51,10 +58,7 @@
             }
         }
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        public IUserService UserService { get; private set; }
 
         private string password;
 
@@ -64,6 +68,6 @@
 
         private ICommand loginCommand;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public INavigationService NavigationService;
     }
 }

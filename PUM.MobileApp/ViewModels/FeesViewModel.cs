@@ -1,15 +1,23 @@
-﻿using PUM.MobileApp.Models;
-using System.Collections.ObjectModel;
-
-namespace PUM.MobileApp.ViewModels
+﻿namespace PUM.MobileApp.ViewModels
 {
-    public class FeesViewModel
-    {
+    using GalaSoft.MvvmLight;
+    using System.Windows.Input;
 
+    public class FeesViewModel : ViewModelBase
+    {
         public FeesViewModel()
         {
-            FeesCollection = new ObservableCollection<Fee>();
+           
         }
-        public ObservableCollection<Fee> FeesCollection { get; }
+
+        public ICommand GetFeesCommand
+        {
+            get
+            {
+                return getFeesCommand;
+            }
+        }
+
+        private ICommand getFeesCommand;
     }
 }

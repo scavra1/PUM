@@ -1,44 +1,36 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
     using CommonServiceLocator;
-    using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Ioc;
     using GalaSoft.MvvmLight.Views;
+    using PUM.MobileApp.Services;
     using PUM.MobileApp.Views;
 
     public class ViewModelLocator
-    {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
+    { 
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             var nav = new NavigationService();
-            nav.Configure("Bans", typeof(BansView));
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                // Create design time view services and models
-            }
-            else
-            {
-                // Create run time view services and models
-            }
 
-            //Register your services used here
+            nav.Configure("Bans", typeof(BansView));
+            nav.Configure("Fees", typeof(FeesView));
+            nav.Configure("Login", typeof(LoginView));
+            nav.Configure("MainMenu", typeof(MainMenuView));
+            nav.Configure("Reservations", typeof(ReservationsView));
+
+            SimpleIoc.Default.Register<IUserService, UserService>();
             SimpleIoc.Default.Register<INavigationService>(() => nav);
+
             SimpleIoc.Default.Register<BansViewModel>();
+            SimpleIoc.Default.Register<FeesViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<ReservationsViewModel>();
+            SimpleIoc.Default.Register<MainMenuViewModel>();
         }
 
-
-        // <summary>
-        // Gets the FirstPage view model.
-        // </summary>
-        // <value>
-        // The FirstPage view model.
-        // </value>
-        public BansViewModel FirstPageInstance
+        public BansViewModel BansViewModel
         {
             get
             {
@@ -46,12 +38,40 @@
             }
         }
 
-        // <summary>
-        // The cleanup.
-        // </summary>
+        public LoginViewModel LoginViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public MainMenuViewModel MainMenuViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainMenuViewModel>();
+            }
+        }
+
+        public FeesViewModel FeesViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<FeesViewModel>();
+            }
+        }
+
+        public ReservationsViewModel ReservationsViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ReservationsViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
-            //  Clear the ViewModels
         }
     }
 }

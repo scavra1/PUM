@@ -5,15 +5,142 @@
     xmlns:local="using:PUM.MobileApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cc="using:PUM.MobileApp.CustomControls"
+    xmlns:data="using:PUM.SharedModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding ReservationsViewModel, Source={StaticResource Locator}}">
 
-    <Grid>
-        <!--<StackPanel Background="LightGreen">
-            <CalendarView CalendarItemBackground="LightGreen" OutOfScopeBackground="GreenYellow" Background="LightGreen" Margin="10 10 10 0" Width="410"/>
-            <Button Margin="10 10 10 10" Content="RESERVE" FontSize="30" HorizontalAlignment="Center"></Button>
-        </StackPanel>-->
-        <TextBlock Margin="10 10 10 10" FontSize="20" Text="{Binding HeaderText}" FontFamily="Comic Sans MS"></TextBlock>
+    <Grid Padding="10 0">
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical" Padding="5 20 0 5" HorizontalAlignment="Stretch" Height="728" Margin="0,0,0,0" VerticalAlignment="Stretch">
+                <Border BorderBrush="Blue" Padding="0 0 0 5" BorderThickness="0 0 0 3">
+                    <TextBlock Text="Reservations" FontWeight="Bold" FontSize="20"/>
+                </Border>
+                <DatePicker HorizontalAlignment="Center" DateChanged="DatePicker_DateChanged"  Date="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,30,0,0" VerticalAlignment="Stretch"/>
 
+
+                <Grid Margin="0 15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="275"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="600"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Godzina" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Zapisana osoba" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+
+                    <StackPanel Margin="10 0 0 0" Grid.Row="1" Grid.Column="0">
+                        <TextBlock Text="10:00 - 11:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="11:00 - 12:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="12:00 - 13:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="13:00 - 14:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="14:00 - 15:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="15:00 - 16:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="16:00 - 17:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="17:00 - 18:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="18:00 - 19:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="19:00 - 20:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                        <TextBlock Text="20:00 - 21:00" Height="30" HorizontalAlignment="Center" Foreground="Gold" Margin="0 10" FontSize="20"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[0].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[0]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[0]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[1].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[1]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[1]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalAlignment="Center" Content="{Binding Reservations[2].Person}" Height="30" HorizontalAlignment="Center" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[2]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[2]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[3].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[3]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[3]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[4].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[4]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[4]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[5].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[5]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[5]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[6].Person}" Height="30" Width="275" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[6]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[6]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[7].Person}" Height="30" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[7]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[7]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[8].Person}" Height="30" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[8]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[8]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[9].Person}" Height="30" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[9]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[9]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding Reservations[10].Person}" Height="30" Margin="0 10" FontSize="15">
+                            <Button.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Rezerwuj termin" Command="{Binding ReserveCommand}" CommandParameter="{Binding Reservations[10]}"/>
+                                    <MenuFlyoutItem Text="Usuń rezerwację" Command="{Binding DeleteReservationCommand}" CommandParameter="{Binding Reservations[10]}"/>
+                                </MenuFlyout>
+                            </Button.ContextFlyout>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
