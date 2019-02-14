@@ -22,8 +22,7 @@ namespace PUM.MobileApp.Views
         public LoginView()
         {
             this.InitializeComponent();
-
-            ViewModel = new LoginViewModel();
+            
             orientation = Height > Width ? Orientation.Portrait : Orientation.Landscape;
 
             VisualStateManager.GoToState(this, orientation.ToString(), true);

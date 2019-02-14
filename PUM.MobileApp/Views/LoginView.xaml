@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    SizeChanged="Page_SizeChanged
+    SizeChanged="Page_SizeChanged"
     DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}">
     <Grid>
         <StackPanel Orientation="Vertical"
@@ -37,11 +37,11 @@
                     </DataTemplate>
                 </PasswordBox.HeaderTemplate>
             </PasswordBox>
-            <Button HorizontalAlignment="Center"
+            <Button x:Name="LoginButton"
+                    HorizontalAlignment="Center"
                     Width="400" Margin="20, 0"
                     FontSize="30" Content="LOGIN" 
-                    Command="{Binding LoginCommand}"
-                    
+                    Command="{Binding LoginCommand}"    
                     FontWeight="Bold"/>
             <ProgressRing Height="50" 
                               Width="50"
