@@ -6,6 +6,9 @@
     using PUM.MobileApp.Services;
     using PUM.MobileApp.Views;
 
+    /// <summary>
+    /// Class that allows to navigate between views
+    /// </summary>
     public class ViewModelLocator
     { 
         public ViewModelLocator()
@@ -19,6 +22,7 @@
             nav.Configure("Login", typeof(LoginView));
             nav.Configure("MainMenu", typeof(MainMenuView));
             nav.Configure("Reservations", typeof(ReservationsView));
+            nav.Configure("UserReservations", typeof(UserReservationsView));
 
             SimpleIoc.Default.Register<IUserService, UserService>();
             SimpleIoc.Default.Register<INavigationService>(() => nav);
@@ -28,6 +32,7 @@
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReservationsViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
+            SimpleIoc.Default.Register<UserReservationsVeiwModel>();
         }
 
         public BansViewModel BansViewModel
@@ -59,7 +64,7 @@
             get
             {
                 return ServiceLocator.Current.GetInstance<FeesViewModel>();
-            }
+            } 
         }
 
         public ReservationsViewModel ReservationsViewModel
@@ -67,6 +72,14 @@
             get
             {
                 return ServiceLocator.Current.GetInstance<ReservationsViewModel>();
+            }
+        }
+
+        public UserReservationsVeiwModel UserReservationsVeiwModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<UserReservationsVeiwModel>();
             }
         }
 

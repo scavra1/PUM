@@ -30,6 +30,17 @@ FROM dbo.Reservations R
 INNER JOIN dbo.Users U ON U.UserID = R.UserID
 WHERE R.DateKey = @DateKey";
 
+        public const string GetUserReservations = @"
+SELECT R.ReservationID
+        , CONCAT (U.FirstName, ' ', U.LastName) AS Person
+        , R.UserID
+        , R.Date
+        , R.hour
+        , R.Fee
+FROM dbo.Reservations R
+INNER JOIN dbo.Users U ON U.UserID = R.UserID
+WHERE R.UserID = @UserID";
+
 
 
         public const string CheckUserDailyReservationsQuery = @"

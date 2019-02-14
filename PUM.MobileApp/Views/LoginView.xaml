@@ -14,7 +14,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Height="375">
-            <TextBox Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <TextBox x:Name="LoginTextBox"
+                Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      Header="Login:"
                      FontSize="20"
                      Margin="20, 20 20 0">

@@ -19,6 +19,15 @@
             return Query<Reservation>(ReservationQueries.GetReservations, parameters);
         }
 
+        public List<Reservation> GetUserReservations(long userID)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("UserID", userID);
+
+            return Query<Reservation>(ReservationQueries.GetUserReservations, parameters);
+        }
+
         public bool CheckDailyReservationForUser(long userID, int dateKey)
         {
             var parameters = new Dictionary<string, object>();

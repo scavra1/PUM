@@ -13,8 +13,10 @@
         {
             this.UserService = userService;
             this.NavigationService = navigationService;
-            this.Login = "scavra";
+#if DEBUG
+            this.Login = "handy";
             this.Password = "password";
+#endif
         }
 
         public string Login

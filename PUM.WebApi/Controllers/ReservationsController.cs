@@ -65,6 +65,21 @@
             }
         }
 
+        [HttpGet]
+        public IHttpActionResult GetUserReservations(long userID)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservations = reservationsContext.GetUserReservations(userID);
+
+                return Ok(reservations);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
         [HttpDelete]
         public IHttpActionResult DeleteReservation([FromUri] int reservationId)
         {
