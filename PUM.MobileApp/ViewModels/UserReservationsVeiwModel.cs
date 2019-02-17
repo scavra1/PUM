@@ -36,7 +36,7 @@ namespace PUM.MobileApp.ViewModels
             set
             {
                 userReservationsCollection = value;
-                RaisePropertyChanged("Reservations");
+                RaisePropertyChanged("UsersReservationCollection");
             }
         }
 
