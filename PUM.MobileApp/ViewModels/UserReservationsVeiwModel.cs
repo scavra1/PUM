@@ -63,8 +63,8 @@ namespace PUM.MobileApp.ViewModels
             }
         }
 
-        private String currentView;
-        public String CurrentView
+        private string currentView;
+        public string CurrentView
         {
             get
             {
