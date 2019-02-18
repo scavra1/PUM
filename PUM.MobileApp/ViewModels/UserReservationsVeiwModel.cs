@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -17,12 +16,12 @@ namespace PUM.MobileApp.ViewModels
     /// <summary>
     /// ViewModel class for UserReservationsView
     /// </summary>
-    public class UserReservationsVeiwModel : ViewModelBase, IBackableViewModel
+    public class UserReservationsViewModel : ViewModelBase, IBackableViewModel
     {
-        public UserReservationsVeiwModel(IUserService userService)
+        public UserReservationsViewModel(IUserService userService)
         {
             UserService = userService;
-            DownloadMyReservations();
+            ShowAllUsersReservations();
         }
 
         #region Properties
@@ -59,6 +58,21 @@ namespace PUM.MobileApp.ViewModels
             }
         }
 
+        private String currentView;
+        public String CurrentView
+        {
+            get
+            {
+                return currentView;
+            }
+            set
+            {
+                currentView = value;
+                RaisePropertyChanged("CurrentView");
+            }
+        }
+
+        #region Commands
         private ICommand backToMainMenuCommand;
         public ICommand BackToMainMenuCommand
         {
@@ -70,12 +84,84 @@ namespace PUM.MobileApp.ViewModels
                 return backToMainMenuCommand;
             }
         }
+
+        private ICommand showAllUsersReservationsCommand;
+        public ICommand ShowAllUsersReservationsCommand
+        {
+            get
+            {
+                if (showAllUsersReservationsCommand == null)
+                    showAllUsersReservationsCommand = new ShowAllUsersReservationsCommand(this);
+
+                return showAllUsersReservationsCommand;
+            }
+        }
+
+        private ICommand showPastUsersReservationsCommand;
+        public ICommand ShowPastUsersReservationsCommand
+        {
+            get
+            {
+                if (showPastUsersReservationsCommand == null)
+                    showPastUsersReservationsCommand = new ShowPastUsersReservationsCommand(this);
+
+                return showPastUsersReservationsCommand;
+            }
+        }
+
+        private ICommand showUpcomingUsersReservationsCommand;
+        public ICommand ShowUpcomingUsersReservationsCommand
+        {
+            get
+            {
+                if (showUpcomingUsersReservationsCommand == null)
+                    showUpcomingUsersReservationsCommand = new ShowUpcomingUsersReservationsCommand(this);
+
+                return showUpcomingUsersReservationsCommand;
+            }
+        }
+        #endregion
         #endregion
 
-        private async Task DownloadMyReservations()
+        public async Task ShowAllUsersReservations()
         {
             IsWorking = true;
 
+            UsersReservationCollection = new ObservableCollection<Reservation>(await DownloadMyReservations());
+
+            CurrentView = "All reservations";
+
+            IsWorking = false;
+        }
+
+        public async Task ShowPastUsersReservations()
+        {
+            IsWorking = true;
+
+            var allReservations = await DownloadMyReservations();
+
+            UsersReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date < DateTime.Now));
+
+            CurrentView = "Past reservations";
+
+            IsWorking = false;
+        }
+
+        public async Task ShowUpcomingUsersReservations()
+        {
+            IsWorking = true;
+
+            var allReservations = await DownloadMyReservations();
+
+            UsersReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date > DateTime.Now));
+
+            CurrentView = "Upcoming reservations";
+
+            IsWorking = false;
+        }
+
+        private async Task<ICollection<Reservation>> DownloadMyReservations()
+        {
             var uriString = "http://localhost/api/reservations/getuserreservations?";
             uriString += "userID=" + UserService.CurrentUser.UserID.ToString();
 
@@ -86,9 +172,7 @@ namespace PUM.MobileApp.ViewModels
             var content = await response.Content.ReadAsStringAsync();
             var reservations = JsonConvert.DeserializeObject<List<Reservation>>(content);
 
-            UsersReservationCollection = new ObservableCollection<Reservation>(reservations);
-
-            IsWorking = false;
+            return new ObservableCollection<Reservation>(reservations);
         }
     }
 }

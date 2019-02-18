@@ -124,6 +124,9 @@
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\ReserveCommand.cs" />
+    <Compile Include="Commands\UserReservationsCommands\ShowPastUsersReservationsCommand.cs" />
+    <Compile Include="Commands\UserReservationsCommands\ShowAllUsersReservationsCommand.cs" />
+    <Compile Include="Commands\UserReservationsCommands\ShowUpcomingUsersReservationsCommand.cs" />
     <Compile Include="CustomControls\ReservationControl.xaml.cs">
       <DependentUpon>ReservationControl.xaml</DependentUpon>
     </Compile>
