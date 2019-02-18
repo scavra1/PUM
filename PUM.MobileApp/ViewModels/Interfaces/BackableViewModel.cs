@@ -1,7 +1,7 @@
 ﻿using PUM.MobileApp.Commands;
 using System.Windows.Input;
 
-namespace PUM.MobileApp.ViewModels
+namespace PUM.MobileApp.ViewModels.Interfaces
 {
     public interface IBackableViewModel
     {

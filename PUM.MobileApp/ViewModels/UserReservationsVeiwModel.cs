@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PUM.MobileApp.Commands;
 using PUM.MobileApp.Services;
+using PUM.MobileApp.ViewModels.Interfaces;
 using PUM.SharedModels;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace PUM.MobileApp.ViewModels
 {
     /// <summary>
     /// ViewModel class for UserReservationsView
     /// </summary>
-    public class UserReservationsViewModel : ViewModelBase, IBackableViewModel
+    public class UserReservationsViewModel : ViewModelBase, IBackableViewModel, IFilterableViewModel
     {
         public UserReservationsViewModel(IUserService userService)
         {
@@ -27,17 +30,19 @@ namespace PUM.MobileApp.ViewModels
         #region Properties
         public IUserService UserService { get; private set; }
 
-        private ObservableCollection<Reservation> userReservationsCollection;
-        public ObservableCollection<Reservation> UsersReservationCollection
+        private ICollection<Reservation> userReservations;
+
+        private ObservableCollection<Reservation> userReservationsObservableCollection;
+        public ObservableCollection<Reservation> UsersObservableReservationCollection
         {
             get
             {
-                return userReservationsCollection;
+                return userReservationsObservableCollection;
             }
             set
             {
-                userReservationsCollection = value;
-                RaisePropertyChanged("UsersReservationCollection");
+                userReservationsObservableCollection = value;
+                RaisePropertyChanged("UsersObservableReservationCollection");
             }
         }
 
@@ -120,6 +125,18 @@ namespace PUM.MobileApp.ViewModels
                 return showUpcomingUsersReservationsCommand;
             }
         }
+
+        private ICommand applyFilterCommand;
+        public ICommand ApplyFilterCommand
+        {
+            get
+            {
+                if (applyFilterCommand == null)
+                    applyFilterCommand = new ApplyFilterCommand(this);
+
+                return applyFilterCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -127,7 +144,7 @@ namespace PUM.MobileApp.ViewModels
         {
             IsWorking = true;
 
-            UsersReservationCollection = new ObservableCollection<Reservation>(await DownloadMyReservations());
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(await DownloadMyReservations());
 
             CurrentView = "All reservations";
 
@@ -140,7 +157,7 @@ namespace PUM.MobileApp.ViewModels
 
             var allReservations = await DownloadMyReservations();
 
-            UsersReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date < DateTime.Now));
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date < DateTime.Now));
 
             CurrentView = "Past reservations";
 
@@ -153,9 +170,31 @@ namespace PUM.MobileApp.ViewModels
 
             var allReservations = await DownloadMyReservations();
 
-            UsersReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date > DateTime.Now));
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date > DateTime.Now));
 
             CurrentView = "Upcoming reservations";
+
+            IsWorking = false;
+        }
+
+        public void FilterCollection(object parameter)
+        {
+            IsWorking = true;
+
+            var filterValue = (String)parameter;
+
+            if(filterValue == "Paid")
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == true));
+            }
+            else if(filterValue == "NotPaid")
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == false));
+            }
+            else
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations);
+            }
 
             IsWorking = false;
         }
@@ -170,9 +209,9 @@ namespace PUM.MobileApp.ViewModels
             var response = await client.GetAsync(uri);
 
             var content = await response.Content.ReadAsStringAsync();
-            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(content);
+            userReservations = JsonConvert.DeserializeObject<List<Reservation>>(content);
 
-            return new ObservableCollection<Reservation>(reservations);
+            return new ObservableCollection<Reservation>(userReservations);
         }
     }
 }
