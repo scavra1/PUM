@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
+using PUM.MobileApp.Commands;
 using PUM.MobileApp.Services;
 using PUM.SharedModels;
 using System;
@@ -9,13 +10,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PUM.MobileApp.ViewModels
 {
     /// <summary>
     /// ViewModel class for UserReservationsView
     /// </summary>
-    public class UserReservationsVeiwModel : ViewModelBase
+    public class UserReservationsVeiwModel : ViewModelBase, IBackableViewModel
     {
         public UserReservationsVeiwModel(IUserService userService)
         {
@@ -54,6 +56,18 @@ namespace PUM.MobileApp.ViewModels
                     isWorking = value;
                     RaisePropertyChanged("IsWorking");
                 }
+            }
+        }
+
+        private ICommand backToMainMenuCommand;
+        public ICommand BackToMainMenuCommand
+        {
+            get
+            {
+                if (backToMainMenuCommand == null)
+                    backToMainMenuCommand = new NavigationCommand("MainMenu");
+
+                return backToMainMenuCommand;
             }
         }
         #endregion

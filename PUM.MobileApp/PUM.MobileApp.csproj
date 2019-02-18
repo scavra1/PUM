@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\UserReservationsVeiwModel.cs" />
     <Compile Include="ViewModels\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\Interfaces\BackableViewModel.cs" />
     <Compile Include="Views\FeesView.xaml.cs">
       <DependentUpon>FeesView.xaml</DependentUpon>
     </Compile>

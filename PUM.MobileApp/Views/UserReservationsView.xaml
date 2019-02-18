@@ -39,7 +39,6 @@
                                             PropertyName="Text" Value="Not paid" />
                                     </Interactions:DataTriggerBehavior>
                                 </Interactivity:Interaction.Behaviors>
-
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -52,4 +51,22 @@
             </ListView.HeaderTemplate>
         </ListView>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact">
+            <!--<AppBarToggleButton Icon="Shuffle" Label="Shuffle" Click="AppBarButton_Click" />
+            <AppBarToggleButton Icon="RepeatAll" Label="Repeat" Click="AppBarButton_Click"/>
+            <AppBarSeparator/>-->
+            <AppBarButton Icon="Back" Label="Back" Command="{Binding BackToMainMenuCommand}"/>
+
+            <CommandBar.SecondaryCommands>
+                <!--<AppBarButton Label="Upcoming" Click="AppBarButton_Click"/>
+                <AppBarButton Label="Past" Click="AppBarButton_Click"/>
+                <AppBarButton Label="All" Click="AppBarButton_Click"/>-->
+            </CommandBar.SecondaryCommands>
+
+            <CommandBar.Content>
+                <TextBlock Text="Now playing..." Margin="12,14"/>
+            </CommandBar.Content>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
