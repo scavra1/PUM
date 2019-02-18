@@ -134,6 +134,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\AppBarableViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\FilterableViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\UserReservationsVeiwModel.cs" />
