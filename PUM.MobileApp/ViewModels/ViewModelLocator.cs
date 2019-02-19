@@ -32,7 +32,7 @@
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReservationsViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
-            SimpleIoc.Default.Register<UserReservationsVeiwModel>();
+            SimpleIoc.Default.Register<UserReservationsViewModel>();
         }
 
         public BansViewModel BansViewModel
@@ -75,11 +75,11 @@
             }
         }
 
-        public UserReservationsVeiwModel UserReservationsVeiwModel
+        public UserReservationsViewModel UserReservationsViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<UserReservationsVeiwModel>();
+                return ServiceLocator.Current.GetInstance<UserReservationsViewModel>();
             }
         }
 

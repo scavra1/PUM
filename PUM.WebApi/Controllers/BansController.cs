@@ -17,5 +17,20 @@
         {
             return bansContext.GetBansList();
         }
+
+        [HttpGet]
+        public IHttpActionResult GetUserBans(long userID)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservations = bansContext.GetUserBansList(userID);
+
+                return Ok(reservations);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }
