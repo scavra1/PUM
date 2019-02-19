@@ -11,8 +11,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace PUM.MobileApp.ViewModels
 {
@@ -120,7 +118,7 @@ namespace PUM.MobileApp.ViewModels
             get
             {
                 if (showUpcomingUsersReservationsCommand == null)
-                    showUpcomingUsersReservationsCommand = new showActiveBansCommand(this);
+                    showUpcomingUsersReservationsCommand = new ShowUpcomingUsersReservationsCommand(this);
 
                 return showUpcomingUsersReservationsCommand;
             }
@@ -183,11 +181,11 @@ namespace PUM.MobileApp.ViewModels
 
             var filterValue = (String)parameter;
 
-            if(filterValue == "Paid")
+            if (filterValue == "Paid")
             {
                 UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == true));
             }
-            else if(filterValue == "NotPaid")
+            else if (filterValue == "NotPaid")
             {
                 UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == false));
             }

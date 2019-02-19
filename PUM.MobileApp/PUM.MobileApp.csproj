@@ -136,7 +136,6 @@
     </Compile>
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
-    <Compile Include="ViewModels\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\AppBarableViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\FilterableViewModel.cs" />
