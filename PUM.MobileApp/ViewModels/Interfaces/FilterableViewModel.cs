@@ -7,13 +7,16 @@ namespace PUM.MobileApp.ViewModels.Interfaces
     {
         ICommand ApplyFilterCommand { get; }
 
-        void FilterCollection(object parameter);
+        string LastFilter { get; set; }
+
+        void FilterCollection(object parameter = null);
     }
 
     public class FilterableViewModel : IFilterableViewModel
     {
-        private ICommand applyFilterCommand;
+        public string LastFilter { get; set; }
 
+        private ICommand applyFilterCommand;
         public ICommand ApplyFilterCommand
         {
             get
@@ -25,8 +28,13 @@ namespace PUM.MobileApp.ViewModels.Interfaces
             }
         }
 
-        public void FilterCollection(object parameter)
+        public void FilterCollection(object parameter = null)
         {
+            if (parameter != null)
+            {
+                LastFilter = (string)parameter;
+            }
+
             throw new System.NotImplementedException();
         }
     }

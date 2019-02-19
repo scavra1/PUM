@@ -16,13 +16,15 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class BansViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel
+    public class BansViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel, IFilterableViewModel
     {
         public BansViewModel(IUserService userService)
         {
             UserService = userService;
             AdminPanelVisibility = UserService.CurrentUser.IsAdmin;
-            ShowAllBans();
+            CurrentView = "All bans";
+            LastFilter = "None";
+            RefreshView();
         }
 
         #region Properties
@@ -62,6 +64,9 @@
             }
         }
 
+        #region Interfaces implementations
+        public string LastFilter { get; set; }
+
         private string currentView;
         public string CurrentView
         {
@@ -89,6 +94,7 @@
                 RaisePropertyChanged("AdminPanelVisibility");
             }
         }
+        #endregion
 
         #region Commands
         #region Interfaces implementations
@@ -125,6 +131,18 @@
                     addItemCommand = new AddItemCommand(this);
 
                 return addItemCommand;
+            }
+        }
+
+        private ICommand applyFilterCommand;
+        public ICommand ApplyFilterCommand
+        {
+            get
+            {
+                if (applyFilterCommand == null)
+                    applyFilterCommand = new ApplyFilterCommand(this);
+
+                return applyFilterCommand;
             }
         }
         #endregion
@@ -169,9 +187,43 @@
 
         #region Methods
         #region Interfaces implementations
+        public void FilterCollection(object parameter = null)
+        {
+            IsWorking = true;
+
+            if(parameter != null)
+            {
+                LastFilter = (string)parameter;
+                ShowBans();
+            }
+
+            if (LastFilter == "Mine")
+            {
+                BansObservableCollection = new ObservableCollection<Ban>(BansObservableCollection.Where(x => x.UserID == UserService.CurrentUser.UserID));
+            }
+            else
+            {
+                BansObservableCollection = new ObservableCollection<Ban>(BansObservableCollection);
+            }
+
+            IsWorking = false;
+        }
+
         public void RefreshView()
         {
-            switch(currentView)
+            Task.Run(async () => { await DownloadBans(); }).Wait();
+            //DownloadBans().Wait();
+            ShowBans();
+        }
+
+        public void AddItem()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
+        public void ShowBans()
+        {
+            switch (currentView)
             {
                 case "Past bans":
                     ShowPastBans(); break;
@@ -182,49 +234,43 @@
             }
         }
 
-        public void AddItem()
-        {
-            throw new System.NotImplementedException();
-        }
-        #endregion
-        public async Task ShowAllBans()
+        public void ShowAllBans()
         {
             IsWorking = true;
 
-            BansObservableCollection = new ObservableCollection<Ban>(await DownloadBans());
+            BansObservableCollection = new ObservableCollection<Ban>(bansCollection);
+            FilterCollection();
 
             CurrentView = "All bans";
 
             IsWorking = false;
         }
 
-        public async Task ShowPastBans()
+        public void ShowPastBans()
         {
             IsWorking = true;
 
-            var allReservations = await DownloadBans();
-
-            BansObservableCollection = new ObservableCollection<Ban>(allReservations.Where(x => x.Active == false));
+            BansObservableCollection = new ObservableCollection<Ban>(bansCollection.Where(x => x.Active == false));
+            FilterCollection();
 
             CurrentView = "Past bans";
 
             IsWorking = false;
         }
 
-        public async Task ShowActiveBans()
+        public void ShowActiveBans()
         {
             IsWorking = true;
 
-            var allReservations = await DownloadBans();
-
-            BansObservableCollection = new ObservableCollection<Ban>(allReservations.Where(x => x.Active == true));
+            BansObservableCollection = new ObservableCollection<Ban>(bansCollection.Where(x => x.Active == true));
+            FilterCollection();
 
             CurrentView = "Active bans";
 
             IsWorking = false;
         }
 
-        private async Task<ICollection<Ban>> DownloadBans()
+        private async Task DownloadBans()
         {
             var uriString = "http://localhost/api/bans";
             if (UserService.CurrentUser.IsAdmin)
@@ -242,8 +288,6 @@
 
             var content = await response.Content.ReadAsStringAsync();
             bansCollection = JsonConvert.DeserializeObject<List<Ban>>(content);
-
-            return new ObservableCollection<Ban>(bansCollection);
         }
         #endregion
     }

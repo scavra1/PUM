@@ -11,6 +11,7 @@ namespace PUM.Database.Queries
         public const string GetBansQuery = @"
 SELECT CONCAT(U.FirstName, ' ', U.LastName) AS BannedUsername
     , B.BanID
+    , B.UserID
     , B.Reason
     , B.Expire AS ExpirationDate
 FROM dbo.Bans B
@@ -19,6 +20,7 @@ INNER JOIN dbo.Users U ON B.UserID = U.UserID";
         public const string GetUserBansQuery = @"
 SELECT CONCAT(U.FirstName, ' ', U.LastName) AS BannedUsername
     , B.BanID
+    , B.UserID
     , B.Reason
     , B.Expire AS ExpirationDate
 FROM dbo.Bans B

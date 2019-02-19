@@ -5,6 +5,8 @@
     {
         public long BanID { get; set; }
 
+        public long UserID { get; set; }
+
         public string BannedUsername { get; set; }
 
         public string Reason { get; set; }

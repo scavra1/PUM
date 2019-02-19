@@ -24,6 +24,7 @@ namespace PUM.MobileApp.ViewModels
         public UserReservationsViewModel(IUserService userService)
         {
             UserService = userService;
+            DownloadMyReservations();
             ShowAllUsersReservations();
         }
 
@@ -63,6 +64,9 @@ namespace PUM.MobileApp.ViewModels
             }
         }
 
+        #region Interfaces implementations
+        public string LastFilter { get; set; }
+
         private string currentView;
         public string CurrentView
         {
@@ -76,6 +80,7 @@ namespace PUM.MobileApp.ViewModels
                 RaisePropertyChanged("CurrentView");
             }
         }
+        #endregion
 
         #region Commands
         #region Interfaces implementations
@@ -168,7 +173,7 @@ namespace PUM.MobileApp.ViewModels
 
         #region Methods
         #region Interfaces implementations
-        public void FilterCollection(object parameter)
+        public void FilterCollection(object parameter = null)
         {
             IsWorking = true;
 
@@ -176,15 +181,15 @@ namespace PUM.MobileApp.ViewModels
 
             if (filterValue == "Paid")
             {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == true));
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(UsersObservableReservationCollection.Where(x => x.Fee == true));
             }
             else if (filterValue == "NotPaid")
             {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == false));
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(UsersObservableReservationCollection.Where(x => x.Fee == false));
             }
             else
             {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations);
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(UsersObservableReservationCollection);
             }
 
             IsWorking = false;
@@ -192,6 +197,7 @@ namespace PUM.MobileApp.ViewModels
 
         public void RefreshView()
         {
+            DownloadMyReservations();
             switch (currentView)
             {
                 case "Past reservations":
@@ -212,7 +218,7 @@ namespace PUM.MobileApp.ViewModels
         {
             IsWorking = true;
 
-            UsersObservableReservationCollection = new ObservableCollection<Reservation>(await DownloadMyReservations());
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations);
 
             CurrentView = "All reservations";
 
@@ -223,9 +229,7 @@ namespace PUM.MobileApp.ViewModels
         {
             IsWorking = true;
 
-            var allReservations = await DownloadMyReservations();
-
-            UsersObservableReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date < DateTime.Now));
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Date < DateTime.Now));
 
             CurrentView = "Past reservations";
 
@@ -236,16 +240,14 @@ namespace PUM.MobileApp.ViewModels
         {
             IsWorking = true;
 
-            var allReservations = await DownloadMyReservations();
-
-            UsersObservableReservationCollection = new ObservableCollection<Reservation>(allReservations.Where(x => x.Date > DateTime.Now));
+            UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Date > DateTime.Now));
 
             CurrentView = "Upcoming reservations";
 
             IsWorking = false;
         }
 
-        private async Task<ICollection<Reservation>> DownloadMyReservations()
+        private async Task DownloadMyReservations()
         {
             var uriString = "http://localhost/api/reservations/getuserreservations?";
             uriString += "userID=" + UserService.CurrentUser.UserID.ToString();
@@ -256,8 +258,6 @@ namespace PUM.MobileApp.ViewModels
 
             var content = await response.Content.ReadAsStringAsync();
             userReservations = JsonConvert.DeserializeObject<List<Reservation>>(content);
-
-            return new ObservableCollection<Reservation>(userReservations);
         }
         #endregion
     }

@@ -72,6 +72,34 @@
         <CommandBar x:Name="PageCommandBar" ClosedDisplayMode="Compact">
             <AppBarButton Icon="Back" Label="Back" Command="{Binding BackToMainMenuCommand}"/>
             <AppBarButton Icon="Add" Label="Ban user" Command="{Binding AddItemCommand}" Visibility="{Binding AdminPanelVisibility}"/>
+            <AppBarButton x:Name="FilterButton" Icon="Filter" Label="Filter" Visibility="{Binding AdminPanelVisibility}">
+                <AppBarButton.ContextFlyout>
+                    <MenuFlyout>
+                        <!--Menu item for main Filter-->
+                        <MenuFlyoutItem x:Name="MineMenuFilter" Text="Mine bans" Background="#2b2b2b" Command="{Binding ApplyFilterCommand}" CommandParameter="Mine">
+                            <Interactivity:Interaction.Behaviors>
+                                <Interactions:EventTriggerBehavior EventName="Click">
+                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=MineMenuFilter}" 
+                                            PropertyName="Background" Value="DarkGray" />
+                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=AllMenuFilter}" 
+                                            PropertyName="Background" Value="#2b2b2b" />
+                                </Interactions:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </MenuFlyoutItem>
+                        <!--Menu item for all Filter-->
+                        <MenuFlyoutItem x:Name="AllMenuFilter" Text="All users' bans" Background="DarkGray" Command="{Binding ApplyFilterCommand}" CommandParameter="All">
+                            <Interactivity:Interaction.Behaviors>
+                                <Interactions:EventTriggerBehavior EventName="Click">
+                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=MineMenuFilter}" 
+                                            PropertyName="Background" Value="#2b2b2b" />
+                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=AllMenuFilter}" 
+                                            PropertyName="Background" Value="DarkGray" />
+                                </Interactions:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.ContextFlyout>
+            </AppBarButton>
             <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding RefreshViewCommand}"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Active" Command="{Binding ShowActiveBansCommand}"/>
