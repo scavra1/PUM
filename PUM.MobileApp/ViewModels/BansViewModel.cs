@@ -212,7 +212,6 @@
         public void RefreshView()
         {
             Task.Run(async () => { await DownloadBans(); }).Wait();
-            //DownloadBans().Wait();
             ShowBans();
         }
 
@@ -221,7 +220,7 @@
             throw new System.NotImplementedException();
         }
         #endregion
-        public void ShowBans()
+        private void ShowBans()
         {
             switch (currentView)
             {

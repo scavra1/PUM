@@ -101,7 +101,6 @@
                     </MenuFlyout>
                 </AppBarButton.ContextFlyout>
             </AppBarButton>
-            <AppBarButton Icon="Add" Label="Ban user" Command="{Binding AddItemCommand}"/>
             <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding RefreshViewCommand}"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Upcoming" Command="{Binding ShowUpcomingUsersReservationsCommand}"/>
