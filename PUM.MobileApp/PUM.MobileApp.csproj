@@ -125,16 +125,22 @@
     <Compile Include="Commands\CommonCommands\AddItemCommand.cs" />
     <Compile Include="Commands\CommonCommands\RefreshViewCommand.cs" />
     <Compile Include="Commands\DeleteReservationCommand.cs" />
-    <Compile Include="Commands\CommonCommands\ApplyFilterCommand.cs" />
+    <Compile Include="Commands\EditBanCommand.cs" />
+    <Compile Include="Commands\ApplyFilterCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\ReserveCommand.cs" />
+    <Compile Include="Commands\UnbanCommand.cs" />
+    <Compile Include="CustomControls\EditUserDialog.xaml.cs">
+      <DependentUpon>EditUserDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Commands\UserReservationsCommands\ShowPastUsersReservationsCommand.cs" />
     <Compile Include="Commands\UserReservationsCommands\ShowAllUsersReservationsCommand.cs" />
     <Compile Include="Commands\UserReservationsCommands\ShowUpcomingUsersReservationsCommand.cs" />
-    <Compile Include="CustomControls\ReservationControl.xaml.cs">
-      <DependentUpon>ReservationControl.xaml</DependentUpon>
+    
+    <Compile Include="CustomControls\EditBanDialog.xaml.cs">
+      <DependentUpon>EditBanDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
@@ -191,7 +197,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CustomControls\ReservationControl.xaml">
+    <Page Include="CustomControls\EditUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\EditBanDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

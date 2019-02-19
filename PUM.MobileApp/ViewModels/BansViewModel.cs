@@ -1,6 +1,7 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
     using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
     using Newtonsoft.Json;
     using PUM.MobileApp.Commands;
     using PUM.MobileApp.Commands.BansCommands;

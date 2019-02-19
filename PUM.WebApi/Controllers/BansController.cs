@@ -32,5 +32,13 @@
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpDelete]
+        public IHttpActionResult RemoveBans([FromUri] long id)
+        {
+            bansContext.Remove(id);
+
+            return Ok("Ban have been removed.");
+        }
     }
 }

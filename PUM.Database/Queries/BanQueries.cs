@@ -26,5 +26,11 @@ SELECT CONCAT(U.FirstName, ' ', U.LastName) AS BannedUsername
 FROM dbo.Bans B
 INNER JOIN dbo.Users U ON B.UserID = U.UserID
 WHERE B.UserID = @UserID";
+
+        public const string RemoveBan = @"
+DELETE
+FROM dbo.Bans
+WHERE BanID = @BanID";
+
     }
 }
