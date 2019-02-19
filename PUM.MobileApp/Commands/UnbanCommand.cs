@@ -37,6 +37,8 @@
 
                 var command = await dialog.ShowAsync();
             }
+
+            viewModel.RefreshView();
         }
 
         private BansViewModel viewModel;

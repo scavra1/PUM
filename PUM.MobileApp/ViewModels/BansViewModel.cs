@@ -183,6 +183,30 @@
                 return showActiveBansCommand;
             }
         }
+
+        private ICommand unbanCommand;
+        public ICommand UnbanCommand
+        {
+            get
+            {
+                if (unbanCommand == null)
+                    unbanCommand = new UnbanCommand(this);
+
+                return unbanCommand;
+            }
+        }
+
+        private ICommand editBanCommand;
+        public ICommand EditBanCommand
+        {
+            get
+            {
+                if (editBanCommand == null)
+                    editBanCommand = new EditBanCommand();
+
+                return editBanCommand;
+            }
+        }
         #endregion
         #endregion
 

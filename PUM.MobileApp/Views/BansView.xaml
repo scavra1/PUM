@@ -11,7 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding BansViewModel, Source={StaticResource Locator}}">
     <Grid x:Name="grid">
-        <ListView Margin="10" Header="Active Bans:" ItemsSource="{Binding BansCollection}">
+        <ListView Margin="10" Header="Active Bans:" ItemsSource="{Binding BansObservableCollection}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="sharedmodels:Ban">
                     <Border BorderThickness="0 0 0 2" BorderBrush="DimGray" Margin="0 10 0 0">
@@ -43,22 +43,6 @@
                                             PropertyName="Visibility" Value="Collapsed" />
                                 </Interactions:DataTriggerBehavior>
                             </Interactivity:Interaction.Behaviors>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <Button x:Name="UnbanButton" Content="{Binding AdminModeVisibility}" Visibility="{Binding Path=AdminModeVisibility}"/>
-                        <Interactivity:Interaction.Behaviors>
-                            <!--START Fee behaviors-->
-                                <Interactions:DataTriggerBehavior Binding="{Binding DataContext.AdminPanelVisibility}" Value="True">
-                                <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=UnbanButton}" 
-                                        PropertyName="Visibility" Value="Visible" />
-                                <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=UnbanButton}" 
-                                        PropertyName="Foreground" Value="Blue" />
-                            </Interactions:DataTriggerBehavior>
-                                <Interactions:DataTriggerBehavior Binding="{Binding DataContext.AdminPanelVisibility}" Value="False">
-                                <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=UnbanButton}" 
-                                        PropertyName="Visibility" Value="Collapsed" />
-                            </Interactions:DataTriggerBehavior>
-                        </Interactivity:Interaction.Behaviors>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

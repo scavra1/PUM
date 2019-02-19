@@ -34,7 +34,7 @@
         }
 
         [HttpDelete]
-        public IHttpActionResult RemoveBans([FromUri] long id)
+        public IHttpActionResult RemoveBan([FromUri] long id)
         {
             bansContext.Remove(id);
 
