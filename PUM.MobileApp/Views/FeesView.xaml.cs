@@ -26,8 +26,6 @@ namespace PUM.MobileApp.Views
         public FeesView()
         {
             this.InitializeComponent();
-            ViewModel = new FeesViewModel();
         }
-        public FeesViewModel ViewModel { get; private set; }
     }
 }

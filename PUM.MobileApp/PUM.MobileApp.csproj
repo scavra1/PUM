@@ -127,6 +127,8 @@
     <Compile Include="Commands\CommonCommands\RefreshViewCommand.cs" />
     <Compile Include="Commands\DeleteReservationCommand.cs" />
     <Compile Include="Commands\EditBanCommand.cs" />
+    <Compile Include="Commands\FeesCommands\ShowAllFeesCommand.cs" />
+    <Compile Include="Commands\FeesCommands\ShowMineFeesCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />

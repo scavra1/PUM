@@ -65,10 +65,12 @@
   <ItemGroup>
     <Compile Include="DatabaseContexts\BansDatabaseContext.cs" />
     <Compile Include="DatabaseContexts\DatabaseContext.cs" />
+    <Compile Include="DatabaseContexts\FeesDatabaseContext.cs" />
     <Compile Include="DatabaseContexts\UsersDatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseContexts\ReservationsDatabaseContext.cs" />
     <Compile Include="Queries\BanQueries.cs" />
+    <Compile Include="Queries\FeeQueries.cs" />
     <Compile Include="Queries\ReservationQueries.cs" />
     <Compile Include="Queries\UserQueries.cs" />
   </ItemGroup>
