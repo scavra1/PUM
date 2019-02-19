@@ -3,7 +3,9 @@
     using PUM.MobileApp.ViewModels;
     using PUM.SharedModels;
     using System;
+    using System.Net.Http;
     using System.Windows.Input;
+    using Windows.UI.Popups;
 
     public class UnbanCommand : ICommand
     {
@@ -18,11 +20,22 @@
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             if (parameter is Ban)
             {
-                
+                var baseUri = @"http://localhost/api/bans/removeBan?id=";
+
+                baseUri += (parameter as Ban).BanID;
+
+                var client = new HttpClient();
+
+                var response = await client.DeleteAsync(baseUri);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                var dialog = new MessageDialog(responseContent);
+
+                var command = await dialog.ShowAsync();
             }
         }
 

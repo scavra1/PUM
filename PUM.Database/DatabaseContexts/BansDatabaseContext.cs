@@ -33,5 +33,14 @@
 
             return bans;
         }
+
+        public void Remove(long id)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("BanID", id);
+
+            Execute(BanQueries.RemoveBan, parameters);
+        }
     }
 }
