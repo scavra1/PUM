@@ -16,7 +16,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class FeesViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel
+    public class FeesViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel, IFilterableViewModel
     {
         public FeesViewModel(IUserService userService)
         {
@@ -64,6 +64,8 @@
         }
 
         #region Interfaces implementations
+        public string LastFilter { get; set; }
+
         private string currentView;
         public string CurrentView
         {
@@ -130,6 +132,18 @@
                 return addItemCommand;
             }
         }
+
+        private ICommand applyFilterCommand;
+        public ICommand ApplyFilterCommand
+        {
+            get
+            {
+                if (applyFilterCommand == null)
+                    applyFilterCommand = new ApplyFilterCommand(this);
+
+                return applyFilterCommand;
+            }
+        }
         #endregion
 
         private ICommand showAllFeesCommand;
@@ -143,27 +157,39 @@
                 return showAllFeesCommand;
             }
         }
-
-        private ICommand showMineFeesCommand;
-        public ICommand ShowMineFeesCommand
-        {
-            get
-            {
-                if (showMineFeesCommand == null)
-                    showMineFeesCommand = new ShowMineFeesCommand(this);
-
-                return showMineFeesCommand;
-            }
-        }
         #endregion
         #endregion
 
         #region Methods
         #region Interfaces implementations
+        public void FilterCollection(object parameter = null)
+        {
+            IsWorking = true;
+
+            if (parameter != null)
+            {
+                LastFilter = (string)parameter;
+                ShowAllFees();
+            }
+
+            if (LastFilter == "Mine")
+            {
+                FeesObservableCollection = new ObservableCollection<Fee>(FeesObservableCollection.Where(x => x.UserID == UserService.CurrentUser.UserID));
+                CurrentView = "All fees";
+            }
+            else
+            {
+                FeesObservableCollection = new ObservableCollection<Fee>(FeesObservableCollection);
+                CurrentView = "Mine fees";
+            }
+
+            IsWorking = false;
+        }
+
         public void RefreshView()
         {
             Task.Run(async () => { await DownloadFees(); }).Wait();
-            ShowFees();
+            ShowAllFees();
         }
 
         public void AddItem()
@@ -171,35 +197,12 @@
             throw new System.NotImplementedException();
         }
         #endregion
-        private void ShowFees()
-        {
-            switch (currentView)
-            {
-                case "Mine fees":
-                    ShowMineFees(); break;
-                default:
-                    ShowAllFees(); break;
-            }
-        }
-
         public void ShowAllFees()
         {
             IsWorking = true;
 
             FeesObservableCollection = new ObservableCollection<Fee>(feesCollection);
-
-            CurrentView = "All fees";
-
-            IsWorking = false;
-        }
-
-        public void ShowMineFees()
-        {
-            IsWorking = true;
-
-            FeesObservableCollection = new ObservableCollection<Fee>(feesCollection.Where(x => x.UserID == UserService.CurrentUser.UserID));
-
-            CurrentView = "Mine fees";
+            FilterCollection();
 
             IsWorking = false;
         }
