@@ -1,14 +1,16 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
     using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
     using Newtonsoft.Json;
+    using PUM.MobileApp.Commands;
     using PUM.SharedModels;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Windows.UI.Xaml;
+    using System.Windows.Input;
 
     public class BansViewModel : ViewModelBase
     {
@@ -47,6 +49,36 @@
                 }
             }
         }
+
+        private ICommand unbanCommand;
+        public ICommand UnbanCommand
+        {
+            get
+            {
+                if (unbanCommand == null)
+                    unbanCommand = new UnbanCommand(this);
+
+                return unbanCommand;
+            }
+        }
+
+        private ICommand editBanCommand;
+        public ICommand EditBanCommand
+        {
+            get
+            {
+                if (editBanCommand == null)
+                    editBanCommand = new EditBanCommand();
+
+                return editBanCommand;
+            }
+        }
+
+        private void CreateEditDialog()
+        {
+
+        }
+        
 
         private async Task DownloadBans()
         {
