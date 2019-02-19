@@ -120,7 +120,7 @@ namespace PUM.MobileApp.ViewModels
             get
             {
                 if (showUpcomingUsersReservationsCommand == null)
-                    showUpcomingUsersReservationsCommand = new ShowUpcomingUsersReservationsCommand(this);
+                    showUpcomingUsersReservationsCommand = new showActiveBansCommand(this);
 
                 return showUpcomingUsersReservationsCommand;
             }

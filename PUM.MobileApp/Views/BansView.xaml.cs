@@ -21,6 +21,21 @@ namespace PUM.MobileApp.Views
             this.InitializeComponent();
         }
 
-        public BansViewModel ViewModel { get; set; }
+        private BansViewModel viewModel;
+        public BansViewModel ViewModel
+        {
+            get
+            {
+                return viewModel;
+            }
+            set
+            {
+                AdminModeVisibility = value.AdminPanelVisibility ? "true" : "false";
+                this.Resources.Add("AdminMode", AdminModeVisibility);
+                viewModel = value;
+            }
+        }
+
+        public string AdminModeVisibility { get; set; }
     }
 }

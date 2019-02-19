@@ -143,4 +143,12 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar x:Name="PageCommandBar" ClosedDisplayMode="Compact">
+            <AppBarButton Icon="Back" Label="Back" Command="{Binding BackToMainMenuCommand}"/>
+            <CommandBar.Content>
+                <TextBlock Text="{Binding CurrentView}" Margin="12,14"/>
+            </CommandBar.Content>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

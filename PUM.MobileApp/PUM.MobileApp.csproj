@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\BansCommands\ShowActiveBansCommand.cs" />
+    <Compile Include="Commands\BansCommands\ShowAllBansCommand.cs" />
+    <Compile Include="Commands\BansCommands\ShowPastBansCommand.cs" />
     <Compile Include="Commands\DeleteReservationCommand.cs" />
     <Compile Include="Commands\ApplyFilterCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
@@ -133,6 +136,7 @@
     </Compile>
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
+    <Compile Include="ViewModels\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\AppBarableViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\FilterableViewModel.cs" />

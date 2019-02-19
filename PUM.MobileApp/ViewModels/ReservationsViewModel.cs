@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using PUM.MobileApp.Commands;
     using PUM.MobileApp.Services;
+    using PUM.MobileApp.ViewModels.Interfaces;
     using PUM.SharedModels;
     using System;
     using System.Collections.Generic;
@@ -14,15 +15,17 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class ReservationsViewModel : ViewModelBase
+    public class ReservationsViewModel : ViewModelBase, IBackableViewModel
     {
         public ReservationsViewModel(IUserService userService)
         {
             SelectedDate = DateTime.Now;
             UserService = userService;
+            CurrentView = "Make reservation";
             DownloadReservations();
         }
 
+        #region Properties
         private DateTimeOffset selectedDate;
         public DateTimeOffset SelectedDate
         {
@@ -37,30 +40,6 @@
                     selectedDate = value;
                     RaisePropertyChanged("SelectedDate");
                 }
-            }
-        }
-
-        private ICommand reserveCommand;
-        public ICommand ReserveCommand
-        {
-            get
-            {
-                if (reserveCommand == null)
-                    reserveCommand = new ReserveCommand(this, UserService);
-
-                return reserveCommand;
-            }
-        }
-
-        private ICommand deleteReservationCommand;
-        public ICommand DeleteReservationCommand
-        {
-            get
-            {
-                if (deleteReservationCommand == null)
-                    deleteReservationCommand = new DeleteReservationCommand(this, UserService);
-
-                return deleteReservationCommand;
             }
         }
 
@@ -94,6 +73,58 @@
                 RaisePropertyChanged("Reservations");
             }
         }
+
+        private string currentView;
+        public string CurrentView
+        {
+            get
+            {
+                return currentView;
+            }
+            set
+            {
+                currentView = value;
+                RaisePropertyChanged("CurrentView");
+            }
+        }
+        #region Commands
+        private ICommand reserveCommand;
+        public ICommand ReserveCommand
+        {
+            get
+            {
+                if (reserveCommand == null)
+                    reserveCommand = new ReserveCommand(this, UserService);
+
+                return reserveCommand;
+            }
+        }
+
+        private ICommand deleteReservationCommand;
+        public ICommand DeleteReservationCommand
+        {
+            get
+            {
+                if (deleteReservationCommand == null)
+                    deleteReservationCommand = new DeleteReservationCommand(this, UserService);
+
+                return deleteReservationCommand;
+            }
+        }
+
+        private ICommand backToMainMenuCommand;
+        public ICommand BackToMainMenuCommand
+        {
+            get
+            {
+                if (backToMainMenuCommand == null)
+                    backToMainMenuCommand = new NavigationCommand("MainMenu");
+
+                return backToMainMenuCommand;
+            }
+        }
+        #endregion
+        #endregion
 
         public IUserService UserService { get; private set; }
 
