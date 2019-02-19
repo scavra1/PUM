@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace PUM.MobileApp.ViewModels.Interfaces
 {
-    public interface IBackableViewModel : IAppBarableViewModel
+    public interface IBackableViewModel
     {
         ICommand BackToMainMenuCommand { get; }
     }
@@ -21,20 +21,6 @@ namespace PUM.MobileApp.ViewModels.Interfaces
                     backToMainMenuCommand = new NavigationCommand("MainMenu");
 
                 return backToMainMenuCommand;
-            }
-        }
-
-        private string currentView;
-        public string CurrentView
-        {
-            get
-            {
-                return currentView;
-            }
-            set
-            {
-                currentView = value;
-                RaisePropertyChanged("CurrentView");
             }
         }
     }

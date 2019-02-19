@@ -71,6 +71,8 @@
     <Page.BottomAppBar>
         <CommandBar x:Name="PageCommandBar" ClosedDisplayMode="Compact">
             <AppBarButton Icon="Back" Label="Back" Command="{Binding BackToMainMenuCommand}"/>
+            <AppBarButton Icon="Add" Label="Ban user" Command="{Binding AddItemCommand}" Visibility="{Binding AdminPanelVisibility}"/>
+            <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding RefreshViewCommand}"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Active" Command="{Binding ShowActiveBansCommand}"/>
                 <AppBarButton Label="Past" Command="{Binding ShowPastBansCommand}"/>

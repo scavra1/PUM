@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Input;
 
-namespace PUM.MobileApp.Commands
+namespace PUM.MobileApp.Commands.UserReservationsCommands
 {
     public class ShowAllUsersReservationsCommand : ICommand
     {

@@ -4,6 +4,7 @@
     using Newtonsoft.Json;
     using PUM.MobileApp.Commands;
     using PUM.MobileApp.Commands.BansCommands;
+    using PUM.MobileApp.Commands.CommonCommands;
     using PUM.MobileApp.Services;
     using PUM.MobileApp.ViewModels.Interfaces;
     using PUM.SharedModels;
@@ -15,7 +16,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class BansViewModel : ViewModelBase, IBackableViewModel, IFilterableViewModel
+    public class BansViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel
     {
         public BansViewModel(IUserService userService)
         {
@@ -85,14 +86,12 @@
             set
             {
                 adminPanelVisibility = value;
-                AdminModeVisibility2 = value ? "true" : "false";
                 RaisePropertyChanged("AdminPanelVisibility");
             }
         }
 
-        public string AdminModeVisibility2 { get; set; }
-
         #region Commands
+        #region Interfaces implementations
         private ICommand backToMainMenuCommand;
         public ICommand BackToMainMenuCommand
         {
@@ -105,17 +104,30 @@
             }
         }
 
-        private ICommand applyFilterCommand;
-        public ICommand ApplyFilterCommand
+        private ICommand refreshViewCommand;
+        public ICommand RefreshViewCommand
         {
             get
             {
-                if (applyFilterCommand == null)
-                    applyFilterCommand = new ApplyFilterCommand(this);
+                if (refreshViewCommand == null)
+                    refreshViewCommand = new RefreshViewCommand(this);
 
-                return applyFilterCommand;
+                return refreshViewCommand;
             }
         }
+
+        private ICommand addItemCommand;
+        public ICommand AddItemCommand
+        {
+            get
+            {
+                if (addItemCommand == null)
+                    addItemCommand = new AddItemCommand(this);
+
+                return addItemCommand;
+            }
+        }
+        #endregion
 
         private ICommand showAllBansCommand;
         public ICommand ShowAllBansCommand
@@ -155,6 +167,26 @@
         #endregion
         #endregion
 
+        #region Methods
+        #region Interfaces implementations
+        public void RefreshView()
+        {
+            switch(currentView)
+            {
+                case "Past bans":
+                    ShowPastBans(); break;
+                case "Active bans":
+                    ShowActiveBans(); break;
+                default:
+                    ShowAllBans(); break;
+            }
+        }
+
+        public void AddItem()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
         public async Task ShowAllBans()
         {
             IsWorking = true;
@@ -192,28 +224,6 @@
             IsWorking = false;
         }
 
-        public void FilterCollection(object parameter)
-        {
-            IsWorking = true;
-
-            var filterValue = (string)parameter;
-
-            if (filterValue == "Active")
-            {
-                BansObservableCollection = new ObservableCollection<Ban>(bansCollection.Where(x => x.Active == true));
-            }
-            else if (filterValue == "Past")
-            {
-                BansObservableCollection = new ObservableCollection<Ban>(bansCollection.Where(x => x.Active == false));
-            }
-            else
-            {
-                BansObservableCollection = new ObservableCollection<Ban>(bansCollection);
-            }
-
-            IsWorking = false;
-        }
-
         private async Task<ICollection<Ban>> DownloadBans()
         {
             var uriString = "http://localhost/api/bans";
@@ -235,5 +245,6 @@
 
             return new ObservableCollection<Ban>(bansCollection);
         }
+        #endregion
     }
 }

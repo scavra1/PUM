@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 using PUM.MobileApp.Commands;
+using PUM.MobileApp.Commands.CommonCommands;
+using PUM.MobileApp.Commands.UserReservationsCommands;
 using PUM.MobileApp.Services;
 using PUM.MobileApp.ViewModels.Interfaces;
 using PUM.SharedModels;
@@ -17,7 +19,7 @@ namespace PUM.MobileApp.ViewModels
     /// <summary>
     /// ViewModel class for UserReservationsView
     /// </summary>
-    public class UserReservationsViewModel : ViewModelBase, IBackableViewModel, IFilterableViewModel
+    public class UserReservationsViewModel : ViewModelBase, IBackableViewModel, IFilterableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel
     {
         public UserReservationsViewModel(IUserService userService)
         {
@@ -76,6 +78,19 @@ namespace PUM.MobileApp.ViewModels
         }
 
         #region Commands
+        #region Interfaces implementations
+        private ICommand applyFilterCommand;
+        public ICommand ApplyFilterCommand
+        {
+            get
+            {
+                if (applyFilterCommand == null)
+                    applyFilterCommand = new ApplyFilterCommand(this);
+
+                return applyFilterCommand;
+            }
+        }
+
         private ICommand backToMainMenuCommand;
         public ICommand BackToMainMenuCommand
         {
@@ -87,6 +102,31 @@ namespace PUM.MobileApp.ViewModels
                 return backToMainMenuCommand;
             }
         }
+
+        private ICommand refreshViewCommand;
+        public ICommand RefreshViewCommand
+        {
+            get
+            {
+                if (refreshViewCommand == null)
+                    refreshViewCommand = new RefreshViewCommand(this);
+
+                return refreshViewCommand;
+            }
+        }
+
+        private ICommand addItemCommand;
+        public ICommand AddItemCommand
+        {
+            get
+            {
+                if (addItemCommand == null)
+                    addItemCommand = new AddItemCommand(this);
+
+                return addItemCommand;
+            }
+        }
+        #endregion
 
         private ICommand showAllUsersReservationsCommand;
         public ICommand ShowAllUsersReservationsCommand
@@ -123,21 +163,51 @@ namespace PUM.MobileApp.ViewModels
                 return showUpcomingUsersReservationsCommand;
             }
         }
+        #endregion
+        #endregion
 
-        private ICommand applyFilterCommand;
-        public ICommand ApplyFilterCommand
+        #region Methods
+        #region Interfaces implementations
+        public void FilterCollection(object parameter)
         {
-            get
-            {
-                if (applyFilterCommand == null)
-                    applyFilterCommand = new ApplyFilterCommand(this);
+            IsWorking = true;
 
-                return applyFilterCommand;
+            var filterValue = (String)parameter;
+
+            if (filterValue == "Paid")
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == true));
+            }
+            else if (filterValue == "NotPaid")
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == false));
+            }
+            else
+            {
+                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations);
+            }
+
+            IsWorking = false;
+        }
+
+        public void RefreshView()
+        {
+            switch (currentView)
+            {
+                case "Past reservations":
+                    ShowPastUsersReservations(); break;
+                case "Upcoming reservations":
+                    ShowUpcomingUsersReservations(); break;
+                default:
+                    ShowAllUsersReservations(); break;
             }
         }
-        #endregion
-        #endregion
 
+        public void AddItem()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
         public async Task ShowAllUsersReservations()
         {
             IsWorking = true;
@@ -175,28 +245,6 @@ namespace PUM.MobileApp.ViewModels
             IsWorking = false;
         }
 
-        public void FilterCollection(object parameter)
-        {
-            IsWorking = true;
-
-            var filterValue = (String)parameter;
-
-            if (filterValue == "Paid")
-            {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == true));
-            }
-            else if (filterValue == "NotPaid")
-            {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations.Where(x => x.Fee == false));
-            }
-            else
-            {
-                UsersObservableReservationCollection = new ObservableCollection<Reservation>(userReservations);
-            }
-
-            IsWorking = false;
-        }
-
         private async Task<ICollection<Reservation>> DownloadMyReservations()
         {
             var uriString = "http://localhost/api/reservations/getuserreservations?";
@@ -211,5 +259,6 @@ namespace PUM.MobileApp.ViewModels
 
             return new ObservableCollection<Reservation>(userReservations);
         }
+        #endregion
     }
 }

@@ -122,8 +122,10 @@
     <Compile Include="Commands\BansCommands\ShowActiveBansCommand.cs" />
     <Compile Include="Commands\BansCommands\ShowAllBansCommand.cs" />
     <Compile Include="Commands\BansCommands\ShowPastBansCommand.cs" />
+    <Compile Include="Commands\CommonCommands\AddItemCommand.cs" />
+    <Compile Include="Commands\CommonCommands\RefreshViewCommand.cs" />
     <Compile Include="Commands\DeleteReservationCommand.cs" />
-    <Compile Include="Commands\ApplyFilterCommand.cs" />
+    <Compile Include="Commands\CommonCommands\ApplyFilterCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
@@ -137,8 +139,11 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\BansViewModel.cs" />
     <Compile Include="ViewModels\FeesViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\AddableViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\AdminableViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\AppBarableViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\FilterableViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\RefreshableViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\UserReservationsVeiwModel.cs" />
     <Compile Include="ViewModels\ReservationsViewModel.cs" />

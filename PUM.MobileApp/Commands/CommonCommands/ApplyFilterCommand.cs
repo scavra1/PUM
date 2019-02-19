@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace PUM.MobileApp.Commands
+namespace PUM.MobileApp.Commands.CommonCommands
 {
     public class ApplyFilterCommand :ICommand
     {

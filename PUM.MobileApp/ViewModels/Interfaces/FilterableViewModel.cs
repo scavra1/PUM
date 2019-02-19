@@ -1,4 +1,4 @@
-﻿using PUM.MobileApp.Commands;
+﻿using PUM.MobileApp.Commands.CommonCommands;
 using System.Windows.Input;
 
 namespace PUM.MobileApp.ViewModels.Interfaces
