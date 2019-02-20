@@ -13,7 +13,7 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     x:Name="window">
-
+   
     <StackPanel>
         <ComboBox x:Name="userComboBox" Header="User:" Width="300" ItemsSource="{Binding ElementName=window, Path=UserList}" SelectedItem="{Binding ElementName=window, Path=SelectedUser}">
             <ComboBox.ItemTemplate>

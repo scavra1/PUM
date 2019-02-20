@@ -49,7 +49,10 @@
             </ListView.ItemTemplate>
             <ListView.HeaderTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" FontSize="25" Margin="10 10 0 0" FontWeight="Bold"/>
+                    <Grid>
+                        <TextBlock Text="{Binding}" FontSize="25" Margin="10 0 0 0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <Button Content="+" FontSize="25" FontWeight="Bold" Command="{Binding ElementName=grid, Path=DataContext.AddNewBanCommand}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.HeaderTemplate>
         </ListView>

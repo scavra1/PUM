@@ -39,6 +39,20 @@
             }
         }
 
+        private string loginError;
+        public string LoginError
+        {
+            get
+            {
+                return loginError;
+            }
+            set
+            {
+                loginError = value;
+                RaisePropertyChanged("LoginError");
+            }
+        }
+
         public bool IsWorking
         {
             get { return isWorking; }

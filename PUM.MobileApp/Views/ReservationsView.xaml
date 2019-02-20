@@ -20,7 +20,7 @@
                 <DatePicker HorizontalAlignment="Center" DateChanged="DatePicker_DateChanged"  Date="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,30,0,0" VerticalAlignment="Stretch"/>
 
 
-                <Grid Margin="0 15">
+                <Grid Margin="0 15" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140"/>
                         <ColumnDefinition Width="275"/>
@@ -143,12 +143,4 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar x:Name="PageCommandBar" ClosedDisplayMode="Compact">
-            <AppBarButton Icon="Back" Label="Back" Command="{Binding BackToMainMenuCommand}"/>
-            <CommandBar.Content>
-                <TextBlock Text="{Binding CurrentView}" Margin="12,14"/>
-            </CommandBar.Content>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

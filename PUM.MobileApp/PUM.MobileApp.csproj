@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\AddNewBanCommand.cs" />
     <Compile Include="Commands\BansCommands\ShowActiveBansCommand.cs" />
     <Compile Include="Commands\BansCommands\ShowAllBansCommand.cs" />
     <Compile Include="Commands\BansCommands\ShowPastBansCommand.cs" />

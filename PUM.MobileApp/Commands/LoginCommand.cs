@@ -40,6 +40,8 @@
 
             viewModel.IsWorking = true;
 
+            viewModel.LoginError = string.Empty;
+
             var credentials = JsonConvert.SerializeObject(new UserCredentials { Username = viewModel.Login, Password = viewModel.Password });
             var requestBody = new StringContent(credentials, Encoding.UTF8, "application/json");
 
@@ -55,6 +57,7 @@
             }
             else
             {
+                viewModel.LoginError = "Credentials are not correct.";
             }
 
             viewModel.IsWorking = false;

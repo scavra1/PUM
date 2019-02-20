@@ -33,9 +33,16 @@ namespace PUM.MobileApp.CustomControls
 
             currentBan = ban;
 
-            this.Title = ban == null ? "Create new ban" : "Edit ban";
-            this.reasonTextBox.Text = ban.Reason;
-            this.expirationDatePicker.Date = ban.ExpirationDate;
+            if (ban == null)
+            {
+                this.Title = "New ban";
+            }
+            else
+            {
+                this.Title = "Edit ban";
+                this.reasonTextBox.Text = ban.Reason;
+                this.expirationDatePicker.Date = ban.ExpirationDate;
+            }
 
             DownloadUsers();
         }
@@ -47,7 +54,7 @@ namespace PUM.MobileApp.CustomControls
             string resource = currentBan != null ? "updateBan" : "createBan";
             Ban newBan = new Ban();
 
-            if(currentBan != null)
+            if (currentBan != null)
             {
                 newBan.BanID = currentBan.BanID;
                 newBan.ExpirationDate = this.expirationDatePicker.Date.Date;
@@ -55,9 +62,10 @@ namespace PUM.MobileApp.CustomControls
             }
             else
             {
-                newBan.UserID = SelectedUser.UserID;
+                newBan.UserID = (this.userComboBox.SelectedItem as User).UserID;
                 newBan.ExpirationDate = this.expirationDatePicker.Date.Date;
                 newBan.Reason = this.reasonTextBox.Text;
+
             }
             var serialized = JsonConvert.SerializeObject(newBan);
             var requestBody = new StringContent(serialized, Encoding.UTF8, "application/json");

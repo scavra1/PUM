@@ -41,36 +41,15 @@
             <Button x:Name="LoginButton"
                     HorizontalAlignment="Center"
                     Width="400" Margin="20, 0"
-                    FontSize="30" Content="LOGIN" 
+                    FontSize="20" Content="LOGIN" 
                     Command="{Binding LoginCommand}"    
                     FontWeight="Bold"/>
+            <TextBlock Margin="0 10" Foreground="Red" FontWeight="Bold" Text="{Binding LoginError}" HorizontalAlignment="Center"/>
             <ProgressRing Height="50" 
                               Width="50"
                               Margin="0 10 0 10" 
                               IsActive="{Binding IsWorking, UpdateSourceTrigger=PropertyChanged}"
                               Foreground="{StaticResource ApplicationLabelForegroundBrush}"/>
         </StackPanel>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Portrait">
-                    <VisualState.Setters>
-                        <Setter Target="LoginTextBox.FontSize" Value="50"/>
-                        <Setter Target="LoginButton.HorizontalAlignment" Value="Left"/>
-                        <Setter Target="LoginButton.FontSize" Value="50"/>
-                    </VisualState.Setters>
-                    <Storyboard>
-                    </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Landscape">
-                    <VisualState.Setters>
-                        <Setter Target="LoginTextBox.FontSize" Value="5"/>
-                        <Setter Target="LoginButton.HorizontalAlignment" Value="Right"/>
-                        <Setter Target="LoginButton.FontSize" Value="5"/>
-                    </VisualState.Setters>
-                    <Storyboard>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

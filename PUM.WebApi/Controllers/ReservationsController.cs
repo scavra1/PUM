@@ -2,6 +2,8 @@
 {
     using PUM.Database.DatabaseContexts;
     using PUM.SharedModels;
+    using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
@@ -10,15 +12,26 @@
     {
 
         private ReservationsDatabaseContext reservationsContext;
+        private BansDatabaseContext bansContext;
 
         public ReservationsController()
         {
             reservationsContext = new ReservationsDatabaseContext();
+            bansContext = new BansDatabaseContext();
         }
 
         [HttpPost]
         public HttpResponseMessage AddReservation([FromBody] Reservation reservation)
         {
+            var bans = bansContext.GetUserBansList(reservation.UserID.Value);
+            var activeBan = bans.FirstOrDefault(b => b.ExpirationDate > DateTime.Now);
+
+            if (activeBan != null)
+            {
+                var message = @"You are banned.";
+                return Request.CreateResponse(HttpStatusCode.OK, message);
+            }
+
             var canUserReserveForDay = reservationsContext.CheckDailyReservationForUser(reservation.UserID.Value, reservation.DateKey);
 
             if (canUserReserveForDay == true)
@@ -34,18 +47,18 @@
                 {
                     reservationsContext.ReserveDateForUser(reservation.UserID.Value, reservation.DateKey, reservation.HourKey);
 
-                    var message = @"Zostałeś zapisany na wybraną godzinę.";
+                    var message = @"You have reserved chosen date.";
                     return Request.CreateResponse(HttpStatusCode.OK, message);
                 }
                 else
                 {
-                    var message = @"Jesteś już zapisany w wybranym tygodniu.";
+                    var message = @"You have already reserved for given week.";
                     return Request.CreateResponse(HttpStatusCode.Forbidden, message);
                 }
             }
             else
             {
-                var message = @"Jesteś już zapisany na wybrany dzień.";
+                var message = @"You have already reserved for given day.";
                 return Request.CreateResponse(HttpStatusCode.Forbidden, message);
             }
         }

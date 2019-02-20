@@ -207,6 +207,19 @@
                 return editBanCommand;
             }
         }
+
+        private ICommand addNewBanCommand;
+        public ICommand AddNewBanCommand
+        {
+            get
+            {
+                if (addNewBanCommand == null)
+                    addNewBanCommand = new AddNewBanCommand(this);
+
+                return addNewBanCommand;
+            }
+        }
+
         #endregion
         #endregion
 
