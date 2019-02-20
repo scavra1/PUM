@@ -11,7 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding BansViewModel, Source={StaticResource Locator}}">
     <Grid x:Name="grid">
-        <ListView Margin="10" Header="Active Bans:" ItemsSource="{Binding BansObservableCollection}">
+        <ListView Margin="10" Header="Bans:" ItemsSource="{Binding BansObservableCollection}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="sharedmodels:Ban">
                     <Border BorderThickness="0 0 0 2" BorderBrush="DimGray" Margin="0 10 0 0">

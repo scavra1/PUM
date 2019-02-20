@@ -33,16 +33,16 @@
 
         private ICollection<Ban> bansCollection;
 
-        private ObservableCollection<Ban> bansobservableCollection;
+        private ObservableCollection<Ban> bansObservableCollection;
         public ObservableCollection<Ban> BansObservableCollection
         {
             get
             {
-                return bansobservableCollection;
+                return bansObservableCollection;
             }
             set
             {
-                bansobservableCollection = value;
+                bansObservableCollection = value;
                 RaisePropertyChanged("BansObservableCollection");
             }
         }
