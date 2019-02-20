@@ -11,5 +11,13 @@
         public int RoomNumber { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public string Fullname
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }

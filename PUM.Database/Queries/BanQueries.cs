@@ -32,5 +32,25 @@ DELETE
 FROM dbo.Bans
 WHERE BanID = @BanID";
 
+
+        public const string UpdateBan = @"
+UPDATE dbo.Bans
+SET [Reason] = @Reason,
+    [Expire] = @Date
+WHERE [BanID] = @BanID";
+
+        public const string NewBan = @"
+INSERT INTO dbo.Bans
+(
+    [Expire],
+    [Reason],
+    [UserID]
+)
+VALUES
+(
+    @Date,
+    @Reason,
+    @UserID
+)";
     }
 }

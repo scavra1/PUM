@@ -1,11 +1,13 @@
-﻿using PUM.SharedModels;
-using System;
+﻿using Newtonsoft.Json;
+using PUM.SharedModels;
 using System.Collections.Generic;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Net.Http;
+using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,20 +30,71 @@ namespace PUM.MobileApp.CustomControls
         public EditBanDialog(Ban ban)
         {
             this.InitializeComponent();
+
             currentBan = ban;
 
             this.Title = ban == null ? "Create new ban" : "Edit ban";
             this.reasonTextBox.Text = ban.Reason;
             this.expirationDatePicker.Date = ban.ExpirationDate;
+
+            DownloadUsers();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            var client = new HttpClient();
+
+            string resource = currentBan != null ? "updateBan" : "createBan";
+            Ban newBan = new Ban();
+
+            if(currentBan != null)
+            {
+                newBan.BanID = currentBan.BanID;
+                newBan.ExpirationDate = this.expirationDatePicker.Date.Date;
+                newBan.Reason = this.reasonTextBox.Text;
+            }
+            else
+            {
+                newBan.UserID = SelectedUser.UserID;
+                newBan.ExpirationDate = this.expirationDatePicker.Date.Date;
+                newBan.Reason = this.reasonTextBox.Text;
+            }
+            var serialized = JsonConvert.SerializeObject(newBan);
+            var requestBody = new StringContent(serialized, Encoding.UTF8, "application/json");
+
+            var resourceAddress = "http://localhost/api/bans/" + resource;
+            var response = await client.PostAsync(resourceAddress, requestBody);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var dialog = new MessageDialog(responseContent);
+            dialog.ShowAsync();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }
+
+        private async void DownloadUsers()
+        {
+            var client = new HttpClient();
+
+            var response = await client.GetAsync("http://localhost/api/users/getusers");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var users = JsonConvert.DeserializeObject<List<User>>(content);
+
+            UserList = new ObservableCollection<User>(users);
+
+            if (currentBan != null)
+            {
+                SelectedUser = UserList.First(u => u.UserID == currentBan.UserID);
+                this.userComboBox.IsEnabled = false;
+            }
+        }
+
+        public User SelectedUser { get; set; }
+
+        public ObservableCollection<User> UserList { get; set; }
 
         private Ban currentBan;
     }

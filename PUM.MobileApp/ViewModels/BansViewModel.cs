@@ -202,7 +202,7 @@
             get
             {
                 if (editBanCommand == null)
-                    editBanCommand = new EditBanCommand();
+                    editBanCommand = new EditBanCommand(this);
 
                 return editBanCommand;
             }

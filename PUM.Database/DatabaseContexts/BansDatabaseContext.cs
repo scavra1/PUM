@@ -42,5 +42,26 @@
 
             Execute(BanQueries.RemoveBan, parameters);
         }
+
+        public void UpdateBan(Ban ban)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("BanID", ban.BanID);
+            parameters.Add("Date", ban.ExpirationDate);
+            parameters.Add("Reason", ban.Reason);
+
+            Execute(BanQueries.UpdateBan, parameters);
+        }
+
+        public void NewBan(Ban ban)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            parameters.Add("Date", ban.ExpirationDate);
+            parameters.Add("Reason", ban.Reason);
+            parameters.Add("UserID", ban.UserID);
+
+            Execute(BanQueries.NewBan, parameters);
+        }
     }
 }

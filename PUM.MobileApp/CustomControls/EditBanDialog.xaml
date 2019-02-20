@@ -5,18 +5,28 @@
     xmlns:local="using:PUM.MobileApp.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sharedmodels="using:PUM.SharedModels"
     mc:Ignorable="d"
     Title="TITLE"
     PrimaryButtonText="Confirm"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    x:Name="window">
 
     <StackPanel>
-        <ComboBox x:Name="userComboBox" Header="User:" Width="300"></ComboBox>
+        <ComboBox x:Name="userComboBox" Header="User:" Width="300" ItemsSource="{Binding ElementName=window, Path=UserList}" SelectedItem="{Binding ElementName=window, Path=SelectedUser}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="sharedmodels:User">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Fullname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
         <TextBox x:Name="reasonTextBox" Header="Reason:"/>
-        
+
         <DatePicker x:Name="expirationDatePicker" Header="Expires"/>
     </StackPanel>
 </ContentDialog>

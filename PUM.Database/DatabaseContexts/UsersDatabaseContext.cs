@@ -19,5 +19,10 @@
 
             return QueryFirstOrDefault<User>(UserQueries.FindUser, parameters);
         }
+
+        public List<User> GetUsers()
+        {
+            return Query<User>(UserQueries.GetUsers);
+        }
     }
 }

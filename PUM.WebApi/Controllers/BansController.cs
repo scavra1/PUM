@@ -33,12 +33,28 @@
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult UpdateBan([FromBody] Ban ban)
+        {
+            bansContext.UpdateBan(ban);
+
+            return Ok("Ban entry has been updated.");
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateBan([FromBody] Ban ban)
+        {
+            bansContext.NewBan(ban);
+
+            return Ok("New ban entry has been added.");
+        }
+
         [HttpDelete]
         public IHttpActionResult RemoveBan([FromUri] long id)
         {
             bansContext.Remove(id);
 
-            return Ok("Ban have been removed.");
+            return Ok("Ban has been removed.");
         }
     }
 }
