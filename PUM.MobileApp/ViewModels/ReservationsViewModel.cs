@@ -4,6 +4,7 @@
     using GalaSoft.MvvmLight;
     using Newtonsoft.Json;
     using PUM.MobileApp.Commands;
+    using PUM.MobileApp.Commands.CommonCommands;
     using PUM.MobileApp.Services;
     using PUM.MobileApp.ViewModels.Interfaces;
     using PUM.SharedModels;
@@ -15,7 +16,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class ReservationsViewModel : ViewModelBase, IBackableViewModel
+    public class ReservationsViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel
     {
         public ReservationsViewModel(IUserService userService)
         {
@@ -123,6 +124,18 @@
                 return backToMainMenuCommand;
             }
         }
+
+        private ICommand refreshViewCommand;
+        public ICommand RefreshViewCommand
+        {
+            get
+            {
+                if (refreshViewCommand == null)
+                    refreshViewCommand = new RefreshViewCommand(this);
+
+                return refreshViewCommand;
+            }
+        }
         #endregion
         #endregion
 
@@ -159,9 +172,15 @@
             {
                 var reservationForHour = reservations.FirstOrDefault(r => r.HourKey == hour);
 
+                var year = SelectedDate.Date.Year;
+                var month = SelectedDate.Date.Month;
+                var day = SelectedDate.Date.Day;
+
+                var dateX = new DateTime(year, month, day, hour, 0, 0);
+
                 if (reservationForHour == null)
                 {
-                    reservationForHour = new Reservation { HourKey = hour, DateKey = dateKey };
+                    reservationForHour = new Reservation { HourKey = hour, DateKey = dateKey, Date = dateX };
                 }
 
                 reservationForHour.HourDescription = $"{hour}:00 - {hour + 1}:00";
@@ -170,6 +189,11 @@
             }
 
             return dailyReservations;
+        }
+
+        public void RefreshView()
+        {
+            DownloadReservations();
         }
     }
 }

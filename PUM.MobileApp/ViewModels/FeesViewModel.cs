@@ -22,7 +22,7 @@
         {
             UserService = userService;
             AdminPanelVisibility = UserService.CurrentUser.IsAdmin;
-            CurrentView = AdminPanelVisibility ? "All fees" : "Mine fees";
+            CurrentView = "All fees";
             RefreshView();
         }
 
@@ -175,12 +175,12 @@
             if (LastFilter == "Mine")
             {
                 FeesObservableCollection = new ObservableCollection<Fee>(FeesObservableCollection.Where(x => x.UserID == UserService.CurrentUser.UserID));
-                CurrentView = "All fees";
+                CurrentView = "Mine fees";
             }
             else
             {
                 FeesObservableCollection = new ObservableCollection<Fee>(FeesObservableCollection);
-                CurrentView = "Mine fees";
+                CurrentView = "All fees";
             }
 
             IsWorking = false;

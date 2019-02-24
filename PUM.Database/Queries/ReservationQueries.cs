@@ -8,6 +8,7 @@ INSERT INTO dbo.Reservations
     UserID,
     DateKey,
     HourKey,
+    Date,
     Fee
 )
 VALUES
@@ -15,6 +16,7 @@ VALUES
     @UserID,
     @DateKey,
     @HourKey,
+    @Date,
     0
 )";
 

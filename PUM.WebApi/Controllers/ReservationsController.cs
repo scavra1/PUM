@@ -45,7 +45,7 @@
                 var canUserReserveForWeek = reservationsContext.CheckWeeklyReservation(reservation.UserID, startDateKey, endDateKey);
                 if (canUserReserveForWeek == true)
                 {
-                    reservationsContext.ReserveDateForUser(reservation.UserID.Value, reservation.DateKey, reservation.HourKey);
+                    reservationsContext.ReserveDateForUser(reservation.UserID.Value, reservation.DateKey, reservation.HourKey, reservation.Date);
 
                     var message = @"You have reserved chosen date.";
                     return Request.CreateResponse(HttpStatusCode.OK, message);

@@ -1,5 +1,6 @@
 ﻿namespace PUM.MobileApp.ViewModels
 {
+    using CommonServiceLocator;
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using Newtonsoft.Json;
@@ -16,6 +17,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Windows.UI.Xaml;
 
     public class BansViewModel : ViewModelBase, IBackableViewModel, IAppBarableViewModel, IRefreshableViewModel, IAddableViewModel, IAdminableViewModel, IFilterableViewModel
     {
@@ -255,7 +257,7 @@
 
         public void AddItem()
         {
-            throw new System.NotImplementedException();
+            AddNewBanCommand.Execute(null);
         }
         #endregion
         private void ShowBans()
@@ -268,6 +270,23 @@
                     ShowActiveBans(); break;
                 default:
                     ShowAllBans(); break;
+            }
+        }
+
+        public Visibility AdminView
+        {
+            get
+            {
+                var user = ServiceLocator.Current.GetInstance<IUserService>().CurrentUser;
+
+                if(user.IsAdmin)
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
             }
         }
 

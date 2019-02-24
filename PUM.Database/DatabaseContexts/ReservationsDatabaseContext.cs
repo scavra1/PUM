@@ -49,13 +49,14 @@
             return ExecuteScalar<bool>(ReservationQueries.CheckUserWeeklyReservationsQuery, parameters);
         }
 
-        public void ReserveDateForUser(long userID, int reservationDateKey, int reservationHourKey)
+        public void ReserveDateForUser(long userID, int reservationDateKey, int reservationHourKey, DateTime reservationDate)
         {
             var parameters = new Dictionary<string, object>();
 
             parameters.Add("UserID", userID);
             parameters.Add("DateKey", reservationDateKey);
             parameters.Add("HourKey", reservationHourKey);
+            parameters.Add("Date", reservationDate);
 
             Execute(ReservationQueries.ReserveQuery, parameters);
         }

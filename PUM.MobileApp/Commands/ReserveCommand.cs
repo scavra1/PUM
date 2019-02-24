@@ -49,6 +49,7 @@
                 var reservationModel = new Reservation
                 {
                     UserID = currentUser.UserID,
+                    Date = reservation.Date,
                     DateKey = reservation.DateKey,
                     HourKey = reservation.HourKey
                 };

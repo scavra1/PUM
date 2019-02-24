@@ -30,8 +30,9 @@ namespace PUM.MobileApp.CustomControls
         public EditBanDialog(Ban ban)
         {
             this.InitializeComponent();
-
             currentBan = ban;
+            DownloadUsers();
+
 
             if (ban == null)
             {
@@ -44,7 +45,7 @@ namespace PUM.MobileApp.CustomControls
                 this.expirationDatePicker.Date = ban.ExpirationDate;
             }
 
-            DownloadUsers();
+           
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -81,13 +82,13 @@ namespace PUM.MobileApp.CustomControls
         {
         }
 
-        private async void DownloadUsers()
+        private void DownloadUsers()
         {
             var client = new HttpClient();
 
-            var response = await client.GetAsync("http://localhost/api/users/getusers");
+            var response = client.GetAsync("http://localhost/api/users/getusers").Result;
 
-            var content = await response.Content.ReadAsStringAsync();
+            var content = response.Content.ReadAsStringAsync().Result;
 
             var users = JsonConvert.DeserializeObject<List<User>>(content);
 

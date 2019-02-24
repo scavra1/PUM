@@ -27,15 +27,7 @@ namespace PUM.MobileApp.Commands
 
             await dialog.ShowAsync();
 
-            switch (viewModel.CurrentView)
-            {
-                case "Past bans":
-                    viewModel.ShowPastBans(); break;
-                case "Active bans":
-                    viewModel.ShowActiveBans(); break;
-                default:
-                    viewModel.ShowAllBans(); break;
-            }
+            viewModel.RefreshView();
         }
     }
 }
